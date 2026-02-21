@@ -853,6 +853,38 @@
         </div>
       </div>
     </section>
+    <section class="section" id="game">
+  <div class="wrap">
+    <div class="sectionTitle">
+      <h3>Corgi Dash</h3>
+      <div class="hint">Boss Cookie minigame</div>
+    </div>
+
+    <div class="card" style="overflow:hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px; border-bottom:1px solid rgba(255,255,255,0.10); flex-wrap:wrap;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div class="badge">Score: <span id="gScore">0</span></div>
+          <div class="badge">Lives: <span id="gLives">3</span></div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn tiny" id="gStart">Start</button>
+          <button class="btn tiny" id="gReset">Reset</button>
+        </div>
+      </div>
+
+      <div id="gArena" style="position:relative; height:360px;">
+        <div id="gCookie" style="position:absolute; left:18px; top:150px; width:70px; height:70px; border-radius:20px; display:grid; place-items:center; font-size:34px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12);">
+          🐶
+        </div>
+      </div>
+
+      <div style="padding:14px; font-size:13px; color:rgba(255,255,255,0.6);">
+        Controls: W / S or Arrow Up / Arrow Down.  
+        Collect 🦴. Avoid 🧶. Cookie is the boss.
+      </div>
+    </div>
+  </div>
+</section>
 
     <section class="section" id="contact">
       <div class="wrap">
@@ -1403,6 +1435,128 @@
       e.preventDefault();
       showToast("Add your real Instagram link in the code");
     });
+    /* ===========================
+   CORGI DASH GAME
+=========================== */
+
+const gArena = document.getElementById("gArena");
+const gCookie = document.getElementById("gCookie");
+const gScore = document.getElementById("gScore");
+const gLives = document.getElementById("gLives");
+const gStart = document.getElementById("gStart");
+const gReset = document.getElementById("gReset");
+
+let gRunning = false;
+let gScoreVal = 0;
+let gLivesVal = 3;
+let gY = 150;
+let gItems = [];
+let gSpeed = 2.5;
+let gSpawn = 0;
+let gLast = 0;
+
+function gClamp(n,a,b){ return Math.max(a,Math.min(b,n)); }
+
+function gUpdateStats(){
+  gScore.textContent = gScoreVal;
+  gLives.textContent = gLivesVal;
+}
+
+function gSpawnItem(){
+  const el = document.createElement("div");
+  const treat = Math.random() < 0.65;
+  el.textContent = treat ? "🦴" : "🧶";
+  el.style.position = "absolute";
+  el.style.fontSize = "28px";
+  el.style.left = gArena.clientWidth + "px";
+  el.style.top = Math.random() * (gArena.clientHeight - 40) + "px";
+  gArena.appendChild(el);
+
+  gItems.push({
+    el,
+    x: gArena.clientWidth,
+    y: parseFloat(el.style.top),
+    type: treat ? "good" : "bad"
+  });
+}
+
+function gRectHit(ax,ay,aw,ah,bx,by,bw,bh){
+  return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+}
+
+function gLoop(ts){
+  if(!gRunning) return;
+  const dt = ts - gLast;
+  gLast = ts;
+
+  gSpawn += dt;
+  if(gSpawn > 900 - gScoreVal){
+    gSpawn = 0;
+    gSpawnItem();
+  }
+
+  const cRect = {x:18, y:gY, w:70, h:70};
+
+  gItems.forEach(item=>{
+    item.x -= gSpeed;
+    item.el.style.left = item.x + "px";
+  });
+
+  for(let i=gItems.length-1;i>=0;i--){
+    const it = gItems[i];
+    const hit = gRectHit(cRect.x,cRect.y,cRect.w,cRect.h,it.x,it.y,30,30);
+
+    if(hit){
+      if(it.type==="good"){
+        gScoreVal += 10;
+      } else {
+        gLivesVal -= 1;
+      }
+      it.el.remove();
+      gItems.splice(i,1);
+      gUpdateStats();
+      if(gLivesVal<=0){
+        gRunning=false;
+        alert("Game Over. Cookie still boss.");
+        return;
+      }
+      continue;
+    }
+
+    if(it.x < -40){
+      it.el.remove();
+      gItems.splice(i,1);
+    }
+  }
+
+  requestAnimationFrame(gLoop);
+}
+
+gStart.addEventListener("click", ()=>{
+  if(gRunning) return;
+  gRunning = true;
+  gLast = performance.now();
+  requestAnimationFrame(gLoop);
+});
+
+gReset.addEventListener("click", ()=>{
+  gRunning=false;
+  gScoreVal=0;
+  gLivesVal=3;
+  gY=150;
+  gItems.forEach(i=>i.el.remove());
+  gItems=[];
+  gUpdateStats();
+});
+
+document.addEventListener("keydown",(e)=>{
+  if(e.key==="ArrowUp"||e.key==="w") gY -= 18;
+  if(e.key==="ArrowDown"||e.key==="s") gY += 18;
+  gY = gClamp(gY,0,gArena.clientHeight-70);
+  gCookie.style.top = gY+"px";
+});
+
+gUpdateStats();
   </script>
 </body>
 </html>
