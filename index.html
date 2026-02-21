@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CraftyCraze</title>
-  <meta name="description" content="CraftyCraze handmade crafts, custom gifts, cute decor. Boss: Cookie." />
+  <meta name="description" content="CraftyCraze cookie dough, cute gifts, custom boxes. Boss: Cookie the corgi." />
 
   <style>
     :root{
@@ -24,7 +24,6 @@
       --p1:#7c3aed;
       --p2:#0ea5e9;
       --p3:#22c55e;
-      --warn:#ffb020;
 
       --max: 1120px;
     }
@@ -683,7 +682,7 @@
         <div class="logo" aria-hidden="true"></div>
         <div class="brandText">
           <div class="name">CraftyCraze</div>
-          <div class="tag">Boss: Cookie</div>
+          <div class="tag">Boss Cookie the corgi</div>
         </div>
       </div>
 
@@ -691,13 +690,12 @@
         <a href="#shop">Shop</a>
         <a href="#how">How it works</a>
         <a href="#reviews">Reviews</a>
+        <a href="#game">Game</a>
         <a href="#contact">Contact</a>
       </nav>
 
       <div class="rightTools">
-        <button class="btn btnIcon" id="themeBtn" title="Sparkle mode">
-          ✨
-        </button>
+        <button class="btn btnIcon" id="themeBtn" title="Sparkle mode">✨</button>
         <button class="btn" id="openCartBtn" title="Open cart">
           Cart <span class="badge" id="cartCount">0</span>
         </button>
@@ -713,29 +711,29 @@
         <div>
           <div class="pill">
             <span class="dot" aria-hidden="true"></span>
-            Handmade drops plus custom orders
+            Cookie dough drops plus mystery boxes
           </div>
 
           <h1>
-            Crafted with chaos.<br>
-            Finished with love.
+            Cookie dough chaos.<br>
+            Cute treats and surprises.
           </h1>
 
           <p class="lead">
-            Welcome to CraftyCraze. Cute decor, custom gifts, and tiny magic items made by the team led by Cookie.
-            Browse the shop, filter by vibe, and tap any item for a quick view.
+            Welcome to CraftyCraze. Edible cookie dough, cute gifts, and a 30€ mystery box curated by Cookie the corgi.
+            Browse the shop, tap any item for quick view, and play Corgi Dash.
           </p>
 
           <div class="ctaRow">
             <a class="btn btnPrimary" href="#shop">Explore the shop</a>
             <button class="btn" id="surpriseBtn">Surprise me</button>
-            <a class="btn" href="#how">How it works</a>
+            <a class="btn" href="#game">Play the game</a>
           </div>
 
           <div class="heroStats">
-            <div class="stat"><strong>Custom</strong><span>made to your theme</span></div>
-            <div class="stat"><strong>Fast</strong><span>friendly turnaround</span></div>
-            <div class="stat"><strong>Handmade</strong><span>every single piece</span></div>
+            <div class="stat"><strong>Cookie dough</strong><span>cute jars, tasty vibes</span></div>
+            <div class="stat"><strong>Mystery box</strong><span>30€ trending surprises</span></div>
+            <div class="stat"><strong>Boss Cookie</strong><span>corgi approved</span></div>
           </div>
         </div>
 
@@ -743,9 +741,7 @@
           <div class="panelHeader">
             <div>
               <h2>Today’s drop board</h2>
-              <p>
-                Tap a vibe and the shop updates. This is where you can make the site feel alive.
-              </p>
+              <p>Tap a vibe and the shop updates.</p>
             </div>
             <span class="badge" id="itemCountBadge">0</span>
           </div>
@@ -765,7 +761,7 @@
             </div>
 
             <div style="margin-top:12px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
-              Boss Cookie tip: You can edit product names, prices, and vibes inside the code in one list.
+              Boss Cookie tip: Edit products in the products list.
             </div>
           </div>
         </aside>
@@ -782,7 +778,7 @@
         <div class="toolbar">
           <div class="search">
             🔎
-            <input id="searchInput" placeholder="Search products like charm, sticker, bouquet" />
+            <input id="searchInput" placeholder="Search cookie dough, jar, box" />
           </div>
 
           <select class="select" id="sortSelect">
@@ -803,29 +799,29 @@
       <div class="wrap">
         <div class="sectionTitle">
           <h3>How it works</h3>
-          <div class="hint">From idea to finished piece</div>
+          <div class="hint">Simple and fun</div>
         </div>
 
         <div class="split">
           <div class="card box">
-            <h4>Custom order flow</h4>
-            <p>Send a message, pick a vibe, and Cookie approves the plan.</p>
+            <h4>Cookie dough drops</h4>
+            <p>Pick a jar, pick a vibe, then message us to order.</p>
             <ul class="list">
-              <li>Tell us what you want made</li>
-              <li>Share colors, theme, and the date you need it</li>
-              <li>We send a quick plan and price</li>
-              <li>We craft it and send progress photos</li>
+              <li>Choose a flavor jar</li>
+              <li>Add a topping pack</li>
+              <li>Pick up or delivery info</li>
+              <li>Enjoy with friends</li>
             </ul>
           </div>
 
           <div class="card box">
-            <h4>Weekly drops</h4>
-            <p>Limited items, first come first served. New drops every week.</p>
+            <h4>Mystery box 30€</h4>
+            <p>A surprise box curated by Cookie. Cute and trending items for young and old.</p>
             <ul class="list">
-              <li>Follow the social link</li>
-              <li>Turn on notifications</li>
-              <li>Grab it fast when it drops</li>
-              <li>Request a matching custom set</li>
+              <li>Pick a vibe</li>
+              <li>Tell us age range if you want</li>
+              <li>We pack fun surprises</li>
+              <li>You unbox the chaos</li>
             </ul>
           </div>
         </div>
@@ -847,85 +843,56 @@
           </div>
 
           <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="btn tiny" id="prevReview">Previous</button>
-            <button class="btn tiny" id="nextReview">Next</button>
+            <button class="btn tiny" id="prevReview" type="button">Previous</button>
+            <button class="btn tiny" id="nextReview" type="button">Next</button>
           </div>
         </div>
       </div>
     </section>
+
     <section class="section" id="game">
-  <div class="wrap">
-    <div class="sectionTitle">
-      <h3>Corgi Dash</h3>
-      <div class="hint">Boss Cookie minigame</div>
-    </div>
-
-    <div class="card" style="overflow:hidden;">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px; border-bottom:1px solid rgba(255,255,255,0.10); flex-wrap:wrap;">
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <div class="badge">Score: <span id="gScore">0</span></div>
-          <div class="badge">Lives: <span id="gLives">3</span></div>
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h3>Corgi Dash</h3>
+          <div class="hint">Boss Cookie the corgi minigame</div>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn tiny" id="gStart">Start</button>
-          <button class="btn tiny" id="gReset">Reset</button>
-        </div>
-      </div>
 
-      <div id="gArena" style="position:relative; height:360px;">
-        <div id="gCookie" style="position:absolute; left:18px; top:150px; width:70px; height:70px; border-radius:20px; display:grid; place-items:center; font-size:34px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12);">
-          🐶
-        </div>
-      </div>
+        <div class="card" style="overflow:hidden;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px; border-bottom:1px solid rgba(255,255,255,0.10); flex-wrap:wrap;">
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <div class="badge">Score: <span id="gScore">0</span></div>
+              <div class="badge">Lives: <span id="gLives">3</span></div>
+              <div class="badge">Best: <span id="gBest">0</span></div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn tiny" id="gStart" type="button">Start</button>
+              <button class="btn tiny" id="gPause" type="button">Pause</button>
+              <button class="btn tiny" id="gReset" type="button">Reset</button>
+            </div>
+          </div>
 
-      <div style="padding:14px; font-size:13px; color:rgba(255,255,255,0.6);">
-        Controls: W / S or Arrow Up / Arrow Down.  
-        Collect 🦴. Avoid 🧶. Cookie is the boss.
-      </div>
-    </div>
-  </div>
-</section>
-    <section class="section" id="game">
-  <div class="wrap">
-    <div class="sectionTitle">
-      <h3>Corgi Dash</h3>
-      <div class="hint">Boss Cookie the corgi minigame</div>
-    </div>
+          <div id="gArena" style="position:relative; height:360px; touch-action:none;">
+            <div style="position:absolute; left:0; right:0; top:50%; height:2px; background:rgba(255,255,255,0.08); transform:translateY(-1px);" aria-hidden="true"></div>
 
-    <div class="card" style="overflow:hidden;">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px; border-bottom:1px solid rgba(255,255,255,0.10); flex-wrap:wrap;">
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <div class="badge">Score: <span id="gScore">0</span></div>
-          <div class="badge">Lives: <span id="gLives">3</span></div>
-          <div class="badge">Best: <span id="gBest">0</span></div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn tiny" id="gStart" type="button">Start</button>
-          <button class="btn tiny" id="gPause" type="button">Pause</button>
-          <button class="btn tiny" id="gReset" type="button">Reset</button>
+            <div id="gCookie"
+              style="position:absolute; left:18px; top:150px; width:70px; height:70px; border-radius:20px; display:grid; place-items:center; font-size:34px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12); user-select:none;"
+              title="Cookie the corgi">🐶</div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; padding:0 14px 14px; align-items:center;">
+            <button class="btn tiny" id="gUp" style="flex:1;" type="button">Up</button>
+            <button class="btn tiny" id="gDown" style="flex:1;" type="button">Down</button>
+          </div>
+
+          <div style="padding:14px; font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6;">
+            Phone: drag inside the game or use Up and Down.
+            Computer: W and S or Arrow Up and Arrow Down.
+            Space pauses.
+            Collect 🦴 and avoid 🧶.
+          </div>
         </div>
       </div>
-
-      <div id="gArena" style="position:relative; height:360px; touch-action:none;">
-        <div style="position:absolute; left:0; right:0; top:50%; height:2px; background:rgba(255,255,255,0.08); transform:translateY(-1px);" aria-hidden="true"></div>
-
-        <div id="gCookie"
-          style="position:absolute; left:18px; top:150px; width:70px; height:70px; border-radius:20px; display:grid; place-items:center; font-size:34px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12); user-select:none;"
-          title="Cookie the corgi">🐶</div>
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap; padding:0 14px 14px; align-items:center;">
-        <button class="btn tiny" id="gUp" style="flex:1;" type="button">Up</button>
-        <button class="btn tiny" id="gDown" style="flex:1;" type="button">Down</button>
-      </div>
-
-      <div style="padding:14px; font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6;">
-        Phone: drag inside the game or use Up and Down buttons.
-        Computer: W and S or Arrow Up and Arrow Down. Space pauses.
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
     <section class="section" id="contact">
       <div class="wrap">
@@ -941,29 +908,29 @@
             <ul class="list">
               <li>Email: <a href="mailto:craftycraze@example.com">craftycraze@example.com</a></li>
               <li>Instagram: <a href="#" id="igLink">@craftycraze</a></li>
-              <li>Boss: Cookie</li>
+              <li>Boss: Cookie the corgi</li>
             </ul>
 
             <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn btnPrimary tiny" id="emailBtn">Start a custom order email</button>
-              <button class="btn tiny" id="copyLinkBtn">Copy website link</button>
+              <button class="btn btnPrimary tiny" id="emailBtn" type="button">Start an order email</button>
+              <button class="btn tiny" id="copyLinkBtn" type="button">Copy website link</button>
             </div>
           </div>
 
           <div class="card box">
-            <h4>Custom order form</h4>
-            <p>Fill this in and press Create Email. It will open Mail with everything ready.</p>
+            <h4>Order form</h4>
+            <p>Fill this in and press Create Email. It opens Mail with everything ready.</p>
 
             <div style="margin-top:12px; display:grid; gap:10px;">
               <input class="select" id="formName" placeholder="Your name" />
-              <input class="select" id="formItem" placeholder="What do you want made" />
-              <input class="select" id="formColors" placeholder="Colors or theme" />
+              <input class="select" id="formItem" placeholder="What do you want" />
+              <input class="select" id="formColors" placeholder="Flavor, theme, or vibe" />
               <input class="select" id="formDate" placeholder="Date needed" />
-              <button class="btn btnPrimary" id="createEmailBtn">Create Email</button>
+              <button class="btn btnPrimary" id="createEmailBtn" type="button">Create Email</button>
             </div>
 
             <div style="margin-top:10px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
-              This does not send anything by itself. It just opens your email app.
+              This does not send anything by itself. It opens your email app.
             </div>
           </div>
         </div>
@@ -972,13 +939,12 @@
 
     <footer class="footer">
       <div class="wrap footerInner">
-        <div>
-          © <span id="year"></span> CraftyCraze. Boss Cookie runs the show.
-        </div>
+        <div>© <span id="year"></span> CraftyCraze. Boss Cookie runs the show.</div>
         <div class="footerLinks">
           <a href="#shop">Shop</a>
           <a href="#how">How it works</a>
           <a href="#reviews">Reviews</a>
+          <a href="#game">Game</a>
           <a href="#contact">Contact</a>
         </div>
       </div>
@@ -989,7 +955,7 @@
     <div class="modal">
       <div class="modalTop">
         <strong id="modalTopTitle">Quick view</strong>
-        <button class="modalClose" id="modalCloseBtn">✕</button>
+        <button class="modalClose" id="modalCloseBtn" type="button">✕</button>
       </div>
       <div class="modalBody">
         <div class="modalThumb" id="modalThumb">
@@ -1005,12 +971,12 @@
               <span id="modalSmall"></span>
             </div>
             <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn tiny" id="modalAddBtn">Add to cart</button>
-              <a class="btn tiny" href="#contact">Request custom</a>
+              <button class="btn tiny" id="modalAddBtn" type="button">Add to cart</button>
+              <a class="btn tiny" href="#contact">Order</a>
             </div>
           </div>
           <div style="margin-top:10px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
-            Boss Cookie note: Add real photos later. For now these are fancy placeholder gradients.
+            Add real photos later if you want. These are placeholders.
           </div>
         </div>
       </div>
@@ -1021,23 +987,23 @@
     <div class="card cartInner">
       <div class="cartHeader">
         <strong>Your cart</strong>
-        <button class="btn tiny" id="closeCartBtn">Close</button>
+        <button class="btn tiny" id="closeCartBtn" type="button">Close</button>
       </div>
 
       <div class="cartList" id="cartList"></div>
 
       <div class="cartTotal">
         <span>Total estimate</span>
-        <strong id="cartTotal">$0</strong>
+        <strong id="cartTotal">0€</strong>
       </div>
 
       <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="btn btnPrimary tiny" id="checkoutBtn">Checkout message</button>
-        <button class="btn tiny" id="clearCartBtn">Clear cart</button>
+        <button class="btn btnPrimary tiny" id="checkoutBtn" type="button">Checkout message</button>
+        <button class="btn tiny" id="clearCartBtn" type="button">Clear cart</button>
       </div>
 
       <div style="margin-top:10px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
-        This cart is for fun and planning. Real payments need a real shop later.
+        This cart is for planning. Real payments need a real shop later.
       </div>
     </div>
   </div>
@@ -1045,255 +1011,694 @@
   <div class="toast" id="toast"></div>
 
   <script>
-  /* CORGI DASH GAME */
-(function () {
-  const gArena = document.getElementById("gArena");
-  const gCookie = document.getElementById("gCookie");
+    const BOSS_NAME = "Cookie the corgi";
 
-  if (!gArena || !gCookie) return;
+    const products = [
+      {
+        id: "cd1",
+        name: "Cookie Dough Jar Classic",
+        vibe: "cozy",
+        price: 10,
+        unit: "per jar",
+        label: "Best seller",
+        desc: "Safe to eat cookie dough in a cute reusable jar. Choose milk or dark chips.",
+        tags: ["cookie dough", "jar", "gift", "cute"]
+      },
+      {
+        id: "cd2",
+        name: "Rainbow Sprinkle Dough",
+        vibe: "sparkle",
+        price: 11,
+        unit: "per jar",
+        label: "Sparkle",
+        desc: "Vanilla dough with rainbow sprinkles and a tiny topping pack.",
+        tags: ["sprinkles", "trending", "sparkle", "cute"]
+      },
+      {
+        id: "cd3",
+        name: "Corgi Cocoa Dough",
+        vibe: "cute",
+        price: 12,
+        unit: "per jar",
+        label: "Cookie approved",
+        desc: "Chocolate dough with mini marshmallows. Boss Cookie’s favorite.",
+        tags: ["chocolate", "corgi", "cozy", "cute"]
+      },
+      {
+        id: "cd4",
+        name: "Mini Dough Bites Box",
+        vibe: "party",
+        price: 14,
+        unit: "box",
+        label: "Share",
+        desc: "Bite size dough balls in mixed flavors. Great for movie nights.",
+        tags: ["party", "share", "snack", "cute"]
+      },
+      {
+        id: "mb1",
+        name: "Mystery Box 30€",
+        vibe: "custom",
+        price: 30,
+        unit: "fixed price",
+        label: "30€ box",
+        desc: "A surprise box curated by Cookie. Cute, trending, and fun for young and old.",
+        tags: ["mystery box", "gift", "trending", "cute", "fun"]
+      }
+    ];
 
-  const gScore = document.getElementById("gScore");
-  const gLives = document.getElementById("gLives");
-  const gBest = document.getElementById("gBest");
+    const reviews = [
+      { text: "The cookie dough jar was so cute and tasted amazing.", name: "Ava", meta: "Cookie dough order" },
+      { text: "Mystery box was actually fun. We opened it as a family.", name: "Noah", meta: "30€ mystery box" },
+      { text: "Rainbow sprinkle dough is pure happiness.", name: "Mia", meta: "Weekly drop" },
+      { text: "Cookie the corgi approved. I approve too.", name: "Luca", meta: "Corgi cocoa jar" }
+    ];
 
-  const gStart = document.getElementById("gStart");
-  const gPause = document.getElementById("gPause");
-  const gReset = document.getElementById("gReset");
+    const el = (id) => document.getElementById(id);
 
-  const gUp = document.getElementById("gUp");
-  const gDown = document.getElementById("gDown");
+    const grid = el("productGrid");
+    const searchInput = el("searchInput");
+    const sortSelect = el("sortSelect");
+    const clearBtn = el("clearBtn");
+    const vibeChips = el("vibeChips");
+    const itemCountBadge = el("itemCountBadge");
 
-  let gRunning = false;
-  let gPaused = false;
+    const modalBackdrop = el("modalBackdrop");
+    const modalCloseBtn = el("modalCloseBtn");
+    const modalTopTitle = el("modalTopTitle");
+    const modalLabel = el("modalLabel");
+    const modalName = el("modalName");
+    const modalDesc = el("modalDesc");
+    const modalKvs = el("modalKvs");
+    const modalPrice = el("modalPrice");
+    const modalSmall = el("modalSmall");
+    const modalAddBtn = el("modalAddBtn");
 
-  let gScoreVal = 0;
-  let gLivesVal = 3;
+    const cartPanel = el("cartPanel");
+    const openCartBtn = el("openCartBtn");
+    const closeCartBtn = el("closeCartBtn");
+    const clearCartBtn = el("clearCartBtn");
+    const cartList = el("cartList");
+    const cartTotal = el("cartTotal");
+    const cartCount = el("cartCount");
+    const checkoutBtn = el("checkoutBtn");
 
-  let gY = 150;
-  let gItems = [];
+    const toast = el("toast");
 
-  let gSpeed = 2.6;
-  let gSpawn = 0;
-  let gLast = 0;
-  let gRaf = null;
+    el("year").textContent = new Date().getFullYear();
 
-  const gBestKey = "craftycraze_corgidash_best";
+    let currentVibe = "all";
+    let cart = [];
+    let modalProduct = null;
 
-  function gClamp(n, a, b) {
-    return Math.max(a, Math.min(b, n));
-  }
-
-  function gUpdateStats() {
-    if (gScore) gScore.textContent = String(gScoreVal);
-    if (gLives) gLives.textContent = String(gLivesVal);
-    if (gBest) gBest.textContent = String(Number(localStorage.getItem(gBestKey) || "0"));
-  }
-
-  function gSetCookie() {
-    gCookie.style.top = gY + "px";
-  }
-
-  function gClearItems() {
-    gItems.forEach((it) => it.el.remove());
-    gItems = [];
-  }
-
-  function gResetGame() {
-    gRunning = false;
-    gPaused = false;
-    gScoreVal = 0;
-    gLivesVal = 3;
-    gY = 150;
-    gSpeed = 2.6;
-    gSpawn = 0;
-    gLast = 0;
-    if (gRaf) cancelAnimationFrame(gRaf);
-    gRaf = null;
-
-    gClearItems();
-    gSetCookie();
-    gUpdateStats();
-  }
-
-  function gSpawnItem() {
-    const el = document.createElement("div");
-    const treat = Math.random() < 0.62;
-
-    el.textContent = treat ? "🦴" : "🧶";
-    el.style.position = "absolute";
-    el.style.width = "54px";
-    el.style.height = "54px";
-    el.style.borderRadius = "18px";
-    el.style.display = "grid";
-    el.style.placeItems = "center";
-    el.style.fontSize = "28px";
-    el.style.background = "rgba(255,255,255,0.06)";
-    el.style.border = "1px solid rgba(255,255,255,0.12)";
-    el.style.userSelect = "none";
-
-    const y = Math.floor(Math.random() * (gArena.clientHeight - 70)) + 6;
-    const x = gArena.clientWidth + 30;
-
-    el.style.left = x + "px";
-    el.style.top = y + "px";
-
-    gArena.appendChild(el);
-
-    gItems.push({
-      el,
-      x,
-      y,
-      w: 54,
-      h: 54,
-      type: treat ? "good" : "bad",
-    });
-  }
-
-  function gRectHit(ax, ay, aw, ah, bx, by, bw, bh) {
-    return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
-  }
-
-  function gGameOver() {
-    gRunning = false;
-    gPaused = false;
-
-    if (gRaf) cancelAnimationFrame(gRaf);
-    gRaf = null;
-
-    const best = Number(localStorage.getItem(gBestKey) || "0");
-    if (gScoreVal > best) localStorage.setItem(gBestKey, String(gScoreVal));
-    gUpdateStats();
-
-    alert("Game over. Cookie is still the boss.");
-  }
-
-  function gTick(ts) {
-    if (!gRunning) return;
-
-    gRaf = requestAnimationFrame(gTick);
-
-    if (gPaused) return;
-
-    const dt = Math.min(32, ts - gLast);
-    gLast = ts;
-
-    gSpawn += dt;
-
-    const spawnEvery = Math.max(360, 900 - gScoreVal * 2);
-    if (gSpawn >= spawnEvery) {
-      gSpawn = 0;
-      gSpawnItem();
+    function money(n){
+      return n.toFixed(0) + "€";
     }
 
-    gSpeed = Math.min(7.6, 2.6 + gScoreVal / 140);
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => {
+        toast.style.display = "none";
+      }, 1600);
+    }
 
-    const cRect = { x: 18, y: gY, w: 70, h: 70 };
+    function activeChip(vibe){
+      [...vibeChips.querySelectorAll(".chip")].forEach(ch => {
+        ch.classList.toggle("chipActive", ch.dataset.vibe === vibe);
+      });
+    }
 
-    gItems.forEach((it) => {
-      it.x -= gSpeed * (dt / 16);
-      it.el.style.left = it.x + "px";
+    function filteredProducts(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+      let list = products.slice();
+
+      if(currentVibe !== "all"){
+        list = list.filter(p => p.vibe === currentVibe);
+      }
+      if(q){
+        list = list.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.desc.toLowerCase().includes(q) ||
+          p.tags.join(" ").toLowerCase().includes(q)
+        );
+      }
+
+      const sort = sortSelect.value;
+      if(sort === "priceLow") list.sort((a,b) => a.price - b.price);
+      if(sort === "priceHigh") list.sort((a,b) => b.price - a.price);
+      if(sort === "name") list.sort((a,b) => a.name.localeCompare(b.name));
+
+      itemCountBadge.textContent = list.length;
+      return list;
+    }
+
+    function renderGrid(){
+      const list = filteredProducts();
+      grid.innerHTML = "";
+
+      list.forEach(p => {
+        const card = document.createElement("article");
+        card.className = "card product";
+        card.innerHTML = `
+          <div class="thumb">
+            <span class="thumbLabel">${p.label}</span>
+          </div>
+          <h4>${p.name}</h4>
+          <p>${p.desc}</p>
+          <div class="row">
+            <div class="price">
+              <strong>${money(p.price)}</strong>
+              <span>${p.unit}</span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn tiny" type="button" data-act="view">Quick view</button>
+              <button class="btn tiny" type="button" data-act="add">Add</button>
+            </div>
+          </div>
+        `;
+
+        card.querySelector('[data-act="view"]').addEventListener("click", () => openModal(p.id));
+        card.querySelector('[data-act="add"]').addEventListener("click", () => addToCart(p.id));
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(productId){
+      const p = products.find(x => x.id === productId);
+      if(!p) return;
+      modalProduct = p;
+
+      modalTopTitle.textContent = "Quick view";
+      modalLabel.textContent = p.label;
+      modalName.textContent = p.name;
+      modalDesc.textContent = p.desc;
+
+      modalKvs.innerHTML = "";
+      const kvs = [
+        "Vibe: " + p.vibe,
+        "Boss: " + BOSS_NAME,
+        "Tags: " + p.tags.join(", ")
+      ];
+      kvs.forEach(t => {
+        const k = document.createElement("div");
+        k.className = "kv";
+        k.textContent = t;
+        modalKvs.appendChild(k);
+      });
+
+      modalPrice.textContent = money(p.price);
+      modalSmall.textContent = p.unit;
+
+      modalBackdrop.style.display = "flex";
+    }
+
+    function closeModal(){
+      modalBackdrop.style.display = "none";
+      modalProduct = null;
+    }
+
+    modalCloseBtn.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", (e) => {
+      if(e.target === modalBackdrop) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeModal();
     });
 
-    for (let i = gItems.length - 1; i >= 0; i--) {
-      const it = gItems[i];
+    modalAddBtn.addEventListener("click", () => {
+      if(modalProduct) addToCart(modalProduct.id);
+    });
 
-      const hit = gRectHit(cRect.x, cRect.y, cRect.w, cRect.h, it.x, it.y, it.w, it.h);
-      if (hit) {
-        if (it.type === "good") gScoreVal += 10;
-        else gLivesVal -= 1;
+    function addToCart(productId){
+      const p = products.find(x => x.id === productId);
+      if(!p) return;
+      cart.push({ id: p.id, name: p.name, price: p.price, unit: p.unit });
+      updateCartUi();
+      showToast("Added: " + p.name);
+    }
 
-        it.el.remove();
-        gItems.splice(i, 1);
+    function removeFromCart(index){
+      cart.splice(index, 1);
+      updateCartUi();
+    }
+
+    function updateCartUi(){
+      cartCount.textContent = cart.length;
+
+      if(cart.length === 0){
+        cartList.innerHTML = `<div style="color: var(--muted2); font-size: 13px;">Cart is empty.</div>`;
+      } else {
+        cartList.innerHTML = "";
+        cart.forEach((it, idx) => {
+          const row = document.createElement("div");
+          row.className = "cartItem";
+          row.innerHTML = `
+            <div>
+              <strong>${it.name}</strong>
+              <span>${money(it.price)} · ${it.unit}</span>
+            </div>
+            <button type="button" title="Remove">Remove</button>
+          `;
+          row.querySelector("button").addEventListener("click", () => removeFromCart(idx));
+          cartList.appendChild(row);
+        });
+      }
+
+      const total = cart.reduce((s, it) => s + it.price, 0);
+      cartTotal.textContent = money(total);
+
+      if(cart.length > 0){
+        cartPanel.style.display = "block";
+      }
+    }
+
+    openCartBtn.addEventListener("click", () => {
+      cartPanel.style.display = (cartPanel.style.display === "block") ? "none" : "block";
+    });
+    closeCartBtn.addEventListener("click", () => cartPanel.style.display = "none");
+    clearCartBtn.addEventListener("click", () => {
+      cart = [];
+      updateCartUi();
+      showToast("Cart cleared");
+    });
+
+    checkoutBtn.addEventListener("click", () => {
+      if(cart.length === 0){
+        showToast("Cart is empty");
+        return;
+      }
+      const total = cart.reduce((s, it) => s + it.price, 0);
+      const lines = cart.map(it => "• " + it.name + " (" + money(it.price) + " " + it.unit + ")");
+      const body = [
+        "Hi CraftyCraze,",
+        "",
+        "I want to order these items:",
+        ...lines,
+        "",
+        "Estimated total: " + money(total),
+        "",
+        "My name:",
+        "My deadline:",
+        "My flavor or vibe:",
+        ""
+      ].join("\n");
+
+      const subject = encodeURIComponent("CraftyCraze order request");
+      const mail = "mailto:craftycraze@example.com?subject=" + subject + "&body=" + encodeURIComponent(body);
+      window.location.href = mail;
+    });
+
+    vibeChips.addEventListener("click", (e) => {
+      const btn = e.target.closest(".chip");
+      if(!btn) return;
+      currentVibe = btn.dataset.vibe || "all";
+      activeChip(currentVibe);
+      renderGrid();
+      showToast("Vibe: " + currentVibe);
+    });
+
+    searchInput.addEventListener("input", () => renderGrid());
+    sortSelect.addEventListener("change", () => renderGrid());
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      sortSelect.value = "featured";
+      currentVibe = "all";
+      activeChip("all");
+      renderGrid();
+      showToast("Cleared");
+    });
+
+    el("surpriseBtn").addEventListener("click", () => {
+      const list = filteredProducts();
+      if(list.length === 0){
+        showToast("No matches");
+        return;
+      }
+      const pick = list[Math.floor(Math.random() * list.length)];
+      openModal(pick.id);
+    });
+
+    el("randomDealBtn").addEventListener("click", () => {
+      const pick = products[Math.floor(Math.random() * products.length)];
+      const cut = Math.floor(Math.random() * 6) + 5;
+      showToast("Deal: " + cut + "% off " + pick.name);
+    });
+
+    const themeBtn = el("themeBtn");
+    let sparkle = false;
+    themeBtn.addEventListener("click", () => {
+      sparkle = !sparkle;
+      document.body.style.filter = sparkle ? "saturate(1.2) contrast(1.05)" : "none";
+      showToast(sparkle ? "Sparkle mode on" : "Sparkle mode off");
+    });
+
+    const reviewText = el("reviewText");
+    const reviewName = el("reviewName");
+    const reviewMeta = el("reviewMeta");
+    let reviewIndex = 0;
+
+    function renderReview(){
+      const r = reviews[reviewIndex];
+      reviewText.textContent = "“" + r.text + "”";
+      reviewName.textContent = r.name;
+      reviewMeta.textContent = r.meta;
+    }
+
+    el("prevReview").addEventListener("click", () => {
+      reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
+      renderReview();
+    });
+    el("nextReview").addEventListener("click", () => {
+      reviewIndex = (reviewIndex + 1) % reviews.length;
+      renderReview();
+    });
+
+    setInterval(() => {
+      reviewIndex = (reviewIndex + 1) % reviews.length;
+      renderReview();
+    }, 5200);
+
+    function safeCopy(text){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        return navigator.clipboard.writeText(text);
+      }
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      return Promise.resolve();
+    }
+
+    el("copyLinkBtn").addEventListener("click", async () => {
+      const link = window.location.href;
+      await safeCopy(link);
+      showToast("Link copied");
+    });
+
+    el("emailBtn").addEventListener("click", () => {
+      const body = [
+        "Hi CraftyCraze,",
+        "",
+        "I want to order:",
+        "",
+        "Item:",
+        "Flavor or vibe:",
+        "Date needed:",
+        "",
+        "Thanks,"
+      ].join("\n");
+
+      const mail = "mailto:craftycraze@example.com?subject=" +
+        encodeURIComponent("Order request") +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mail;
+    });
+
+    el("createEmailBtn").addEventListener("click", () => {
+      const name = el("formName").value.trim();
+      const item = el("formItem").value.trim();
+      const colors = el("formColors").value.trim();
+      const date = el("formDate").value.trim();
+
+      const body = [
+        "Hi CraftyCraze,",
+        "",
+        "My name: " + (name || "(your name)"),
+        "I want: " + (item || "(item)"),
+        "Flavor or vibe: " + (colors || "(flavor or vibe)"),
+        "Date needed: " + (date || "(date)"),
+        "",
+        "Boss Cookie note: please confirm the plan and price.",
+        "",
+        "Thanks!"
+      ].join("\n");
+
+      const mail = "mailto:craftycraze@example.com?subject=" +
+        encodeURIComponent("CraftyCraze order") +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mail;
+    });
+
+    el("igLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      showToast("Add your real Instagram link in the code");
+    });
+
+    renderGrid();
+    updateCartUi();
+    renderReview();
+
+    /* CORGI DASH GAME */
+    (function () {
+      const gArena = document.getElementById("gArena");
+      const gCookie = document.getElementById("gCookie");
+      if (!gArena || !gCookie) return;
+
+      const gScore = document.getElementById("gScore");
+      const gLives = document.getElementById("gLives");
+      const gBest = document.getElementById("gBest");
+
+      const gStart = document.getElementById("gStart");
+      const gPause = document.getElementById("gPause");
+      const gReset = document.getElementById("gReset");
+
+      const gUp = document.getElementById("gUp");
+      const gDown = document.getElementById("gDown");
+
+      let gRunning = false;
+      let gPaused = false;
+
+      let gScoreVal = 0;
+      let gLivesVal = 3;
+
+      let gY = 150;
+      let gItems = [];
+
+      let gSpeed = 2.6;
+      let gSpawn = 0;
+      let gLast = 0;
+      let gRaf = null;
+
+      const gBestKey = "craftycraze_corgidash_best";
+
+      function gClamp(n, a, b) {
+        return Math.max(a, Math.min(b, n));
+      }
+
+      function gUpdateStats() {
+        if (gScore) gScore.textContent = String(gScoreVal);
+        if (gLives) gLives.textContent = String(gLivesVal);
+        if (gBest) gBest.textContent = String(Number(localStorage.getItem(gBestKey) || "0"));
+      }
+
+      function gSetCookie() {
+        gCookie.style.top = gY + "px";
+      }
+
+      function gClearItems() {
+        gItems.forEach((it) => it.el.remove());
+        gItems = [];
+      }
+
+      function gResetGame() {
+        gRunning = false;
+        gPaused = false;
+        gScoreVal = 0;
+        gLivesVal = 3;
+        gY = 150;
+        gSpeed = 2.6;
+        gSpawn = 0;
+        gLast = 0;
+        if (gRaf) cancelAnimationFrame(gRaf);
+        gRaf = null;
+
+        gClearItems();
+        gSetCookie();
+        gUpdateStats();
+      }
+
+      function gSpawnItem() {
+        const el = document.createElement("div");
+        const treat = Math.random() < 0.62;
+
+        el.textContent = treat ? "🦴" : "🧶";
+        el.style.position = "absolute";
+        el.style.width = "54px";
+        el.style.height = "54px";
+        el.style.borderRadius = "18px";
+        el.style.display = "grid";
+        el.style.placeItems = "center";
+        el.style.fontSize = "28px";
+        el.style.background = "rgba(255,255,255,0.06)";
+        el.style.border = "1px solid rgba(255,255,255,0.12)";
+        el.style.userSelect = "none";
+
+        const y = Math.floor(Math.random() * (gArena.clientHeight - 70)) + 6;
+        const x = gArena.clientWidth + 30;
+
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+
+        gArena.appendChild(el);
+
+        gItems.push({
+          el,
+          x,
+          y,
+          w: 54,
+          h: 54,
+          type: treat ? "good" : "bad",
+        });
+      }
+
+      function gRectHit(ax, ay, aw, ah, bx, by, bw, bh) {
+        return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+      }
+
+      function gGameOver() {
+        gRunning = false;
+        gPaused = false;
+
+        if (gRaf) cancelAnimationFrame(gRaf);
+        gRaf = null;
+
+        const best = Number(localStorage.getItem(gBestKey) || "0");
+        if (gScoreVal > best) localStorage.setItem(gBestKey, String(gScoreVal));
         gUpdateStats();
 
-        if (gLivesVal <= 0) {
-          gGameOver();
+        alert("Game over. Cookie is still the boss.");
+      }
+
+      function gTick(ts) {
+        if (!gRunning) return;
+        gRaf = requestAnimationFrame(gTick);
+        if (gPaused) return;
+
+        const dt = Math.min(32, ts - gLast);
+        gLast = ts;
+
+        gSpawn += dt;
+
+        const spawnEvery = Math.max(360, 900 - gScoreVal * 2);
+        if (gSpawn >= spawnEvery) {
+          gSpawn = 0;
+          gSpawnItem();
+        }
+
+        gSpeed = Math.min(7.6, 2.6 + gScoreVal / 140);
+
+        const cRect = { x: 18, y: gY, w: 70, h: 70 };
+
+        gItems.forEach((it) => {
+          it.x -= gSpeed * (dt / 16);
+          it.el.style.left = it.x + "px";
+        });
+
+        for (let i = gItems.length - 1; i >= 0; i--) {
+          const it = gItems[i];
+
+          const hit = gRectHit(cRect.x, cRect.y, cRect.w, cRect.h, it.x, it.y, it.w, it.h);
+          if (hit) {
+            if (it.type === "good") gScoreVal += 10;
+            else gLivesVal -= 1;
+
+            it.el.remove();
+            gItems.splice(i, 1);
+            gUpdateStats();
+
+            if (gLivesVal <= 0) {
+              gGameOver();
+              return;
+            }
+            continue;
+          }
+
+          if (it.x < -90) {
+            it.el.remove();
+            gItems.splice(i, 1);
+          }
+        }
+      }
+
+      function gStartGame() {
+        if (gRunning) {
+          gPaused = false;
           return;
         }
-        continue;
+        gRunning = true;
+        gPaused = false;
+        gLast = performance.now();
+        gRaf = requestAnimationFrame(gTick);
       }
 
-      if (it.x < -90) {
-        it.el.remove();
-        gItems.splice(i, 1);
+      function gTogglePause() {
+        if (!gRunning) return;
+        gPaused = !gPaused;
       }
-    }
-  }
 
-  function gStartGame() {
-    if (gRunning) {
-      gPaused = false;
-      return;
-    }
-    gRunning = true;
-    gPaused = false;
-    gLast = performance.now();
-    gRaf = requestAnimationFrame(gTick);
-  }
+      function gNudge(dy) {
+        gY = gClamp(gY + dy, 0, gArena.clientHeight - 70);
+        gSetCookie();
+      }
 
-  function gTogglePause() {
-    if (!gRunning) return;
-    gPaused = !gPaused;
-  }
+      function gSetYFromClientY(clientY) {
+        const r = gArena.getBoundingClientRect();
+        const yInside = clientY - r.top;
+        gY = gClamp(yInside - 35, 0, gArena.clientHeight - 70);
+        gSetCookie();
+      }
 
-  function gNudge(dy) {
-    gY = gClamp(gY + dy, 0, gArena.clientHeight - 70);
-    gSetCookie();
-  }
+      if (gStart) gStart.addEventListener("click", gStartGame);
+      if (gPause) gPause.addEventListener("click", gTogglePause);
+      if (gReset) gReset.addEventListener("click", gResetGame);
 
-  function gSetYFromClientY(clientY) {
-    const r = gArena.getBoundingClientRect();
-    const yInside = clientY - r.top;
-    gY = gClamp(yInside - 35, 0, gArena.clientHeight - 70);
-    gSetCookie();
-  }
+      document.addEventListener("keydown", (e) => {
+        const k = e.key.toLowerCase();
+        if (k === "arrowup" || k === "w") gNudge(-18);
+        if (k === "arrowdown" || k === "s") gNudge(18);
+        if (k === " ") gTogglePause();
+      });
 
-  gStart && gStart.addEventListener("click", gStartGame);
-  gPause && gPause.addEventListener("click", gTogglePause);
-  gReset && gReset.addEventListener("click", gResetGame);
+      gArena.addEventListener("pointerdown", (e) => {
+        gSetYFromClientY(e.clientY);
+      });
 
-  document.addEventListener("keydown", (e) => {
-    const k = e.key.toLowerCase();
-    if (k === "arrowup" || k === "w") gNudge(-18);
-    if (k === "arrowdown" || k === "s") gNudge(18);
-    if (k === " ") gTogglePause();
-  });
+      gArena.addEventListener("pointermove", (e) => {
+        if (e.buttons !== 1) return;
+        gSetYFromClientY(e.clientY);
+      });
 
-  gArena.addEventListener("pointerdown", (e) => {
-    gSetYFromClientY(e.clientY);
-  });
+      if (gUp) gUp.addEventListener("click", () => gNudge(-28));
+      if (gDown) gDown.addEventListener("click", () => gNudge(28));
 
-  gArena.addEventListener("pointermove", (e) => {
-    if (e.buttons !== 1) return;
-    gSetYFromClientY(e.clientY);
-  });
+      let gHoldTimer = null;
 
-  gUp && gUp.addEventListener("click", () => gNudge(-28));
-  gDown && gDown.addEventListener("click", () => gNudge(28));
+      function gStartHold(dy) {
+        gNudge(dy);
+        gHoldTimer = setInterval(() => gNudge(dy), 90);
+      }
 
-  let gHoldTimer = null;
+      function gStopHold() {
+        if (gHoldTimer) clearInterval(gHoldTimer);
+        gHoldTimer = null;
+      }
 
-  function gStartHold(dy) {
-    gNudge(dy);
-    gHoldTimer = setInterval(() => gNudge(dy), 90);
-  }
+      if (gUp) gUp.addEventListener("pointerdown", () => gStartHold(-16));
+      if (gDown) gDown.addEventListener("pointerdown", () => gStartHold(16));
+      if (gUp) gUp.addEventListener("pointerup", gStopHold);
+      if (gDown) gDown.addEventListener("pointerup", gStopHold);
+      if (gUp) gUp.addEventListener("pointercancel", gStopHold);
+      if (gDown) gDown.addEventListener("pointercancel", gStopHold);
+      if (gUp) gUp.addEventListener("pointerleave", gStopHold);
+      if (gDown) gDown.addEventListener("pointerleave", gStopHold);
 
-  function gStopHold() {
-    if (gHoldTimer) clearInterval(gHoldTimer);
-    gHoldTimer = null;
-  }
-
-  gUp && gUp.addEventListener("pointerdown", () => gStartHold(-16));
-  gDown && gDown.addEventListener("pointerdown", () => gStartHold(16));
-  gUp && gUp.addEventListener("pointerup", gStopHold);
-  gDown && gDown.addEventListener("pointerup", gStopHold);
-  gUp && gUp.addEventListener("pointercancel", gStopHold);
-  gDown && gDown.addEventListener("pointercancel", gStopHold);
-  gUp && gUp.addEventListener("pointerleave", gStopHold);
-  gDown && gDown.addEventListener("pointerleave", gStopHold);
-
-  gResetGame();
-})();
+      gResetGame();
+    })();
   </script>
 </body>
 </html>
