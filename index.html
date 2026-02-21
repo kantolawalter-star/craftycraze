@@ -885,6 +885,47 @@
     </div>
   </div>
 </section>
+    <section class="section" id="game">
+  <div class="wrap">
+    <div class="sectionTitle">
+      <h3>Corgi Dash</h3>
+      <div class="hint">Boss Cookie the corgi minigame</div>
+    </div>
+
+    <div class="card" style="overflow:hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:14px; border-bottom:1px solid rgba(255,255,255,0.10); flex-wrap:wrap;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div class="badge">Score: <span id="gScore">0</span></div>
+          <div class="badge">Lives: <span id="gLives">3</span></div>
+          <div class="badge">Best: <span id="gBest">0</span></div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn tiny" id="gStart" type="button">Start</button>
+          <button class="btn tiny" id="gPause" type="button">Pause</button>
+          <button class="btn tiny" id="gReset" type="button">Reset</button>
+        </div>
+      </div>
+
+      <div id="gArena" style="position:relative; height:360px; touch-action:none;">
+        <div style="position:absolute; left:0; right:0; top:50%; height:2px; background:rgba(255,255,255,0.08); transform:translateY(-1px);" aria-hidden="true"></div>
+
+        <div id="gCookie"
+          style="position:absolute; left:18px; top:150px; width:70px; height:70px; border-radius:20px; display:grid; place-items:center; font-size:34px; background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.12); user-select:none;"
+          title="Cookie the corgi">🐶</div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; padding:0 14px 14px; align-items:center;">
+        <button class="btn tiny" id="gUp" style="flex:1;" type="button">Up</button>
+        <button class="btn tiny" id="gDown" style="flex:1;" type="button">Down</button>
+      </div>
+
+      <div style="padding:14px; font-size:13px; color:rgba(255,255,255,0.6); line-height:1.6;">
+        Phone: drag inside the game or use Up and Down buttons.
+        Computer: W and S or Arrow Up and Arrow Down. Space pauses.
+      </div>
+    </div>
+  </div>
+</section>
 
     <section class="section" id="contact">
       <div class="wrap">
@@ -1004,559 +1045,255 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const BOSS_NAME = "Cookie";
-
-    const products = [
-
-      {
-        id: "p3",
-        name: "Cozy Desk Decor",
-        vibe: "cozy",
-        price: 18,
-        unit: "each",
-        label: "Cozy",
-        desc: "Small handmade decor piece for desks and shelves.",
-        tags: ["cozy", "decor", "handmade"]
-      },
-      {
-        id: "p4",
-        name: "Party Favor Bundle",
-        vibe: "party",
-        price: 25,
-        unit: "bundle",
-        label: "Bundle",
-        desc: "Matching party favors with tags, colors, and theme choices.",
-        tags: ["party", "bundle", "custom"]
-      },
-      {
-        id: "p6",
-        name: "Custom Mystery Box",
-        vibe: "custom",
-        price: 30,
-        unit: "starting price",
-        label: "Custom",
-        desc: "Tell us the vibe, budget, and deadline. Cookie curates the magic.",
-        tags: ["custom", "surprise", "boss approved"]
-      }
-    ];
-
-    const reviews = [
-      { text: "Everything looked even cuter in real life. The details were perfect.", name: "Ava", meta: "Custom gift order" },
-      { text: "Fast, friendly, and the colors matched my theme exactly.", name: "Noah", meta: "Party bundle" },
-      { text: "The packaging was adorable and the piece feels super high quality.", name: "Mia", meta: "Weekly drop" },
-      { text: "Cookie understood the vibe instantly and nailed it.", name: "Luca", meta: "Mystery box" }
-    ];
-
-    const el = (id) => document.getElementById(id);
-
-    const grid = el("productGrid");
-    const searchInput = el("searchInput");
-    const sortSelect = el("sortSelect");
-    const clearBtn = el("clearBtn");
-    const vibeChips = el("vibeChips");
-    const itemCountBadge = el("itemCountBadge");
-
-    const modalBackdrop = el("modalBackdrop");
-    const modalCloseBtn = el("modalCloseBtn");
-    const modalTopTitle = el("modalTopTitle");
-    const modalLabel = el("modalLabel");
-    const modalName = el("modalName");
-    const modalDesc = el("modalDesc");
-    const modalKvs = el("modalKvs");
-    const modalPrice = el("modalPrice");
-    const modalSmall = el("modalSmall");
-    const modalAddBtn = el("modalAddBtn");
-
-    const cartPanel = el("cartPanel");
-    const openCartBtn = el("openCartBtn");
-    const closeCartBtn = el("closeCartBtn");
-    const clearCartBtn = el("clearCartBtn");
-    const cartList = el("cartList");
-    const cartTotal = el("cartTotal");
-    const cartCount = el("cartCount");
-    const checkoutBtn = el("checkoutBtn");
-
-    const toast = el("toast");
-
-    const year = el("year");
-    year.textContent = new Date().getFullYear();
-
-    let currentVibe = "all";
-    let cart = [];
-    let modalProduct = null;
-
-    function money(n){
-      return "$" + n.toFixed(0);
-    }
-
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.style.display = "block";
-      clearTimeout(showToast._t);
-      showToast._t = setTimeout(() => {
-        toast.style.display = "none";
-      }, 1600);
-    }
-
-    function activeChip(vibe){
-      [...vibeChips.querySelectorAll(".chip")].forEach(ch => {
-        ch.classList.toggle("chipActive", ch.dataset.vibe === vibe);
-      });
-    }
-
-    function filteredProducts(){
-      const q = (searchInput.value || "").trim().toLowerCase();
-      let list = products.slice();
-
-      if(currentVibe !== "all"){
-        list = list.filter(p => p.vibe === currentVibe);
-      }
-      if(q){
-        list = list.filter(p =>
-          p.name.toLowerCase().includes(q) ||
-          p.desc.toLowerCase().includes(q) ||
-          p.tags.join(" ").toLowerCase().includes(q)
-        );
-      }
-
-      const sort = sortSelect.value;
-      if(sort === "priceLow") list.sort((a,b) => a.price - b.price);
-      if(sort === "priceHigh") list.sort((a,b) => b.price - a.price);
-      if(sort === "name") list.sort((a,b) => a.name.localeCompare(b.name));
-
-      itemCountBadge.textContent = list.length;
-      return list;
-    }
-
-    function renderGrid(){
-      const list = filteredProducts();
-      grid.innerHTML = "";
-
-      list.forEach(p => {
-        const card = document.createElement("article");
-        card.className = "card product";
-        card.innerHTML = `
-          <div class="thumb">
-            <span class="thumbLabel">${p.label}</span>
-          </div>
-          <h4>${p.name}</h4>
-          <p>${p.desc}</p>
-          <div class="row">
-            <div class="price">
-              <strong>${money(p.price)}</strong>
-              <span>${p.unit}</span>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn tiny" data-act="view">Quick view</button>
-              <button class="btn tiny" data-act="add">Add</button>
-            </div>
-          </div>
-        `;
-
-        card.querySelector('[data-act="view"]').addEventListener("click", () => openModal(p.id));
-        card.querySelector('[data-act="add"]').addEventListener("click", () => addToCart(p.id));
-        grid.appendChild(card);
-      });
-    }
-
-    function openModal(productId){
-      const p = products.find(x => x.id === productId);
-      if(!p) return;
-      modalProduct = p;
-
-      modalTopTitle.textContent = "Quick view";
-      modalLabel.textContent = p.label;
-      modalName.textContent = p.name;
-      modalDesc.textContent = p.desc;
-
-      modalKvs.innerHTML = "";
-      const kvs = [
-        "Vibe: " + p.vibe,
-        "Boss approved by " + BOSS_NAME,
-        "Tags: " + p.tags.join(", ")
-      ];
-      kvs.forEach(t => {
-        const k = document.createElement("div");
-        k.className = "kv";
-        k.textContent = t;
-        modalKvs.appendChild(k);
-      });
-
-      modalPrice.textContent = money(p.price);
-      modalSmall.textContent = p.unit;
-
-      modalBackdrop.style.display = "flex";
-    }
-
-    function closeModal(){
-      modalBackdrop.style.display = "none";
-      modalProduct = null;
-    }
-
-    modalCloseBtn.addEventListener("click", closeModal);
-    modalBackdrop.addEventListener("click", (e) => {
-      if(e.target === modalBackdrop) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeModal();
-    });
-
-    modalAddBtn.addEventListener("click", () => {
-      if(modalProduct) addToCart(modalProduct.id);
-    });
-
-    function addToCart(productId){
-      const p = products.find(x => x.id === productId);
-      if(!p) return;
-      cart.push({ id: p.id, name: p.name, price: p.price, unit: p.unit });
-      updateCartUi();
-      showToast("Added: " + p.name);
-    }
-
-    function removeFromCart(index){
-      cart.splice(index, 1);
-      updateCartUi();
-    }
-
-    function updateCartUi(){
-      cartCount.textContent = cart.length;
-
-      if(cart.length === 0){
-        cartList.innerHTML = `<div style="color: var(--muted2); font-size: 13px;">Cart is empty. Add something cute.</div>`;
-      } else {
-        cartList.innerHTML = "";
-        cart.forEach((it, idx) => {
-          const row = document.createElement("div");
-          row.className = "cartItem";
-          row.innerHTML = `
-            <div>
-              <strong>${it.name}</strong>
-              <span>${money(it.price)} · ${it.unit}</span>
-            </div>
-            <button title="Remove">Remove</button>
-          `;
-          row.querySelector("button").addEventListener("click", () => removeFromCart(idx));
-          cartList.appendChild(row);
-        });
-      }
-
-      const total = cart.reduce((s, it) => s + it.price, 0);
-      cartTotal.textContent = money(total);
-
-      if(cart.length > 0){
-        cartPanel.style.display = "block";
-      }
-    }
-
-    openCartBtn.addEventListener("click", () => {
-      cartPanel.style.display = (cartPanel.style.display === "block") ? "none" : "block";
-    });
-    closeCartBtn.addEventListener("click", () => cartPanel.style.display = "none");
-    clearCartBtn.addEventListener("click", () => {
-      cart = [];
-      updateCartUi();
-      showToast("Cart cleared");
-    });
-
-    checkoutBtn.addEventListener("click", () => {
-      if(cart.length === 0){
-        showToast("Cart is empty");
-        return;
-      }
-      const total = cart.reduce((s, it) => s + it.price, 0);
-      const lines = cart.map(it => "• " + it.name + " (" + money(it.price) + " " + it.unit + ")");
-      const body = [
-        "Hi CraftyCraze,",
-        "",
-        "I want to order these items:",
-        ...lines,
-        "",
-        "Estimated total: " + money(total),
-        "",
-        "Boss Cookie approved vibe: " + currentVibe,
-        "",
-        "My name:",
-        "My deadline:",
-        "My colors and theme:",
-        ""
-      ].join("\n");
-
-      const subject = encodeURIComponent("CraftyCraze order request");
-      const mail = "mailto:craftycraze@example.com?subject=" + subject + "&body=" + encodeURIComponent(body);
-      window.location.href = mail;
-    });
-
-    function wireChips(){
-      vibeChips.addEventListener("click", (e) => {
-        const btn = e.target.closest(".chip");
-        if(!btn) return;
-        currentVibe = btn.dataset.vibe || "all";
-        activeChip(currentVibe);
-        renderGrid();
-        showToast("Vibe: " + currentVibe);
-      });
-    }
-
-    searchInput.addEventListener("input", () => renderGrid());
-    sortSelect.addEventListener("change", () => renderGrid());
-    clearBtn.addEventListener("click", () => {
-      searchInput.value = "";
-      sortSelect.value = "featured";
-      currentVibe = "all";
-      activeChip("all");
-      renderGrid();
-      showToast("Cleared");
-    });
-
-    el("surpriseBtn").addEventListener("click", () => {
-      const list = filteredProducts();
-      if(list.length === 0){
-        showToast("No matches to surprise");
-        return;
-      }
-      const pick = list[Math.floor(Math.random() * list.length)];
-      openModal(pick.id);
-    });
-
-    el("randomDealBtn").addEventListener("click", () => {
-      const pick = products[Math.floor(Math.random() * products.length)];
-      const cut = Math.floor(Math.random() * 6) + 5;
-      showToast("Deal: " + cut + " percent off " + pick.name);
-    });
-
-    const themeBtn = el("themeBtn");
-    let sparkle = false;
-    themeBtn.addEventListener("click", () => {
-      sparkle = !sparkle;
-      document.body.style.filter = sparkle ? "saturate(1.2) contrast(1.05)" : "none";
-      showToast(sparkle ? "Sparkle mode on" : "Sparkle mode off");
-    });
-
-    const reviewText = el("reviewText");
-    const reviewName = el("reviewName");
-    const reviewMeta = el("reviewMeta");
-    let reviewIndex = 0;
-
-    function renderReview(){
-      const r = reviews[reviewIndex];
-      reviewText.textContent = "“" + r.text + "”";
-      reviewName.textContent = r.name;
-      reviewMeta.textContent = r.meta;
-    }
-
-    el("prevReview").addEventListener("click", () => {
-      reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
-      renderReview();
-    });
-    el("nextReview").addEventListener("click", () => {
-      reviewIndex = (reviewIndex + 1) % reviews.length;
-      renderReview();
-    });
-
-    setInterval(() => {
-      reviewIndex = (reviewIndex + 1) % reviews.length;
-      renderReview();
-    }, 5200);
-
-    function safeCopy(text){
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        return navigator.clipboard.writeText(text);
-      }
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      return Promise.resolve();
-    }
-
-    el("copyLinkBtn").addEventListener("click", async () => {
-      const link = window.location.href;
-      await safeCopy(link);
-      showToast("Link copied");
-    });
-
-    el("emailBtn").addEventListener("click", () => {
-      const body = [
-        "Hi CraftyCraze,",
-        "",
-        "I want a custom order.",
-        "",
-        "What I want made:",
-        "Colors and theme:",
-        "Date needed:",
-        "Budget:",
-        "",
-        "Thanks,",
-        ""
-      ].join("\n");
-
-      const mail = "mailto:craftycraze@example.com?subject=" +
-        encodeURIComponent("Custom order request") +
-        "&body=" + encodeURIComponent(body);
-
-      window.location.href = mail;
-    });
-
-    el("createEmailBtn").addEventListener("click", () => {
-      const name = el("formName").value.trim();
-      const item = el("formItem").value.trim();
-      const colors = el("formColors").value.trim();
-      const date = el("formDate").value.trim();
-
-      const body = [
-        "Hi CraftyCraze,",
-        "",
-        "My name: " + (name || "(your name)"),
-        "I want: " + (item || "(what you want made)"),
-        "Colors and theme: " + (colors || "(colors theme)"),
-        "Date needed: " + (date || "(date)"),
-        "",
-        "Boss Cookie note: please confirm the plan and price.",
-        "",
-        "Thanks!"
-      ].join("\n");
-
-      const mail = "mailto:craftycraze@example.com?subject=" +
-        encodeURIComponent("CraftyCraze custom order") +
-        "&body=" + encodeURIComponent(body);
-
-      window.location.href = mail;
-    });
-
-    wireChips();
-    activeChip("all");
-    renderGrid();
-    updateCartUi();
-    renderReview();
-
-    el("igLink").addEventListener("click", (e) => {
-      e.preventDefault();
-      showToast("Add your real Instagram link in the code");
-    });
-    /* ===========================
-   CORGI DASH GAME
-=========================== */
-
-const gArena = document.getElementById("gArena");
-const gCookie = document.getElementById("gCookie");
-const gScore = document.getElementById("gScore");
-const gLives = document.getElementById("gLives");
-const gStart = document.getElementById("gStart");
-const gReset = document.getElementById("gReset");
-
-let gRunning = false;
-let gScoreVal = 0;
-let gLivesVal = 3;
-let gY = 150;
-let gItems = [];
-let gSpeed = 2.5;
-let gSpawn = 0;
-let gLast = 0;
-
-function gClamp(n,a,b){ return Math.max(a,Math.min(b,n)); }
-
-function gUpdateStats(){
-  gScore.textContent = gScoreVal;
-  gLives.textContent = gLivesVal;
-}
-
-function gSpawnItem(){
-  const el = document.createElement("div");
-  const treat = Math.random() < 0.65;
-  el.textContent = treat ? "🦴" : "🧶";
-  el.style.position = "absolute";
-  el.style.fontSize = "28px";
-  el.style.left = gArena.clientWidth + "px";
-  el.style.top = Math.random() * (gArena.clientHeight - 40) + "px";
-  gArena.appendChild(el);
-
-  gItems.push({
-    el,
-    x: gArena.clientWidth,
-    y: parseFloat(el.style.top),
-    type: treat ? "good" : "bad"
-  });
-}
-
-function gRectHit(ax,ay,aw,ah,bx,by,bw,bh){
-  return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
-}
-
-function gLoop(ts){
-  if(!gRunning) return;
-  const dt = ts - gLast;
-  gLast = ts;
-
-  gSpawn += dt;
-  if(gSpawn > 900 - gScoreVal){
+  /* CORGI DASH GAME */
+(function () {
+  const gArena = document.getElementById("gArena");
+  const gCookie = document.getElementById("gCookie");
+
+  if (!gArena || !gCookie) return;
+
+  const gScore = document.getElementById("gScore");
+  const gLives = document.getElementById("gLives");
+  const gBest = document.getElementById("gBest");
+
+  const gStart = document.getElementById("gStart");
+  const gPause = document.getElementById("gPause");
+  const gReset = document.getElementById("gReset");
+
+  const gUp = document.getElementById("gUp");
+  const gDown = document.getElementById("gDown");
+
+  let gRunning = false;
+  let gPaused = false;
+
+  let gScoreVal = 0;
+  let gLivesVal = 3;
+
+  let gY = 150;
+  let gItems = [];
+
+  let gSpeed = 2.6;
+  let gSpawn = 0;
+  let gLast = 0;
+  let gRaf = null;
+
+  const gBestKey = "craftycraze_corgidash_best";
+
+  function gClamp(n, a, b) {
+    return Math.max(a, Math.min(b, n));
+  }
+
+  function gUpdateStats() {
+    if (gScore) gScore.textContent = String(gScoreVal);
+    if (gLives) gLives.textContent = String(gLivesVal);
+    if (gBest) gBest.textContent = String(Number(localStorage.getItem(gBestKey) || "0"));
+  }
+
+  function gSetCookie() {
+    gCookie.style.top = gY + "px";
+  }
+
+  function gClearItems() {
+    gItems.forEach((it) => it.el.remove());
+    gItems = [];
+  }
+
+  function gResetGame() {
+    gRunning = false;
+    gPaused = false;
+    gScoreVal = 0;
+    gLivesVal = 3;
+    gY = 150;
+    gSpeed = 2.6;
     gSpawn = 0;
-    gSpawnItem();
+    gLast = 0;
+    if (gRaf) cancelAnimationFrame(gRaf);
+    gRaf = null;
+
+    gClearItems();
+    gSetCookie();
+    gUpdateStats();
   }
 
-  const cRect = {x:18, y:gY, w:70, h:70};
+  function gSpawnItem() {
+    const el = document.createElement("div");
+    const treat = Math.random() < 0.62;
 
-  gItems.forEach(item=>{
-    item.x -= gSpeed;
-    item.el.style.left = item.x + "px";
+    el.textContent = treat ? "🦴" : "🧶";
+    el.style.position = "absolute";
+    el.style.width = "54px";
+    el.style.height = "54px";
+    el.style.borderRadius = "18px";
+    el.style.display = "grid";
+    el.style.placeItems = "center";
+    el.style.fontSize = "28px";
+    el.style.background = "rgba(255,255,255,0.06)";
+    el.style.border = "1px solid rgba(255,255,255,0.12)";
+    el.style.userSelect = "none";
+
+    const y = Math.floor(Math.random() * (gArena.clientHeight - 70)) + 6;
+    const x = gArena.clientWidth + 30;
+
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+
+    gArena.appendChild(el);
+
+    gItems.push({
+      el,
+      x,
+      y,
+      w: 54,
+      h: 54,
+      type: treat ? "good" : "bad",
+    });
+  }
+
+  function gRectHit(ax, ay, aw, ah, bx, by, bw, bh) {
+    return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+  }
+
+  function gGameOver() {
+    gRunning = false;
+    gPaused = false;
+
+    if (gRaf) cancelAnimationFrame(gRaf);
+    gRaf = null;
+
+    const best = Number(localStorage.getItem(gBestKey) || "0");
+    if (gScoreVal > best) localStorage.setItem(gBestKey, String(gScoreVal));
+    gUpdateStats();
+
+    alert("Game over. Cookie is still the boss.");
+  }
+
+  function gTick(ts) {
+    if (!gRunning) return;
+
+    gRaf = requestAnimationFrame(gTick);
+
+    if (gPaused) return;
+
+    const dt = Math.min(32, ts - gLast);
+    gLast = ts;
+
+    gSpawn += dt;
+
+    const spawnEvery = Math.max(360, 900 - gScoreVal * 2);
+    if (gSpawn >= spawnEvery) {
+      gSpawn = 0;
+      gSpawnItem();
+    }
+
+    gSpeed = Math.min(7.6, 2.6 + gScoreVal / 140);
+
+    const cRect = { x: 18, y: gY, w: 70, h: 70 };
+
+    gItems.forEach((it) => {
+      it.x -= gSpeed * (dt / 16);
+      it.el.style.left = it.x + "px";
+    });
+
+    for (let i = gItems.length - 1; i >= 0; i--) {
+      const it = gItems[i];
+
+      const hit = gRectHit(cRect.x, cRect.y, cRect.w, cRect.h, it.x, it.y, it.w, it.h);
+      if (hit) {
+        if (it.type === "good") gScoreVal += 10;
+        else gLivesVal -= 1;
+
+        it.el.remove();
+        gItems.splice(i, 1);
+        gUpdateStats();
+
+        if (gLivesVal <= 0) {
+          gGameOver();
+          return;
+        }
+        continue;
+      }
+
+      if (it.x < -90) {
+        it.el.remove();
+        gItems.splice(i, 1);
+      }
+    }
+  }
+
+  function gStartGame() {
+    if (gRunning) {
+      gPaused = false;
+      return;
+    }
+    gRunning = true;
+    gPaused = false;
+    gLast = performance.now();
+    gRaf = requestAnimationFrame(gTick);
+  }
+
+  function gTogglePause() {
+    if (!gRunning) return;
+    gPaused = !gPaused;
+  }
+
+  function gNudge(dy) {
+    gY = gClamp(gY + dy, 0, gArena.clientHeight - 70);
+    gSetCookie();
+  }
+
+  function gSetYFromClientY(clientY) {
+    const r = gArena.getBoundingClientRect();
+    const yInside = clientY - r.top;
+    gY = gClamp(yInside - 35, 0, gArena.clientHeight - 70);
+    gSetCookie();
+  }
+
+  gStart && gStart.addEventListener("click", gStartGame);
+  gPause && gPause.addEventListener("click", gTogglePause);
+  gReset && gReset.addEventListener("click", gResetGame);
+
+  document.addEventListener("keydown", (e) => {
+    const k = e.key.toLowerCase();
+    if (k === "arrowup" || k === "w") gNudge(-18);
+    if (k === "arrowdown" || k === "s") gNudge(18);
+    if (k === " ") gTogglePause();
   });
 
-  for(let i=gItems.length-1;i>=0;i--){
-    const it = gItems[i];
-    const hit = gRectHit(cRect.x,cRect.y,cRect.w,cRect.h,it.x,it.y,30,30);
+  gArena.addEventListener("pointerdown", (e) => {
+    gSetYFromClientY(e.clientY);
+  });
 
-    if(hit){
-      if(it.type==="good"){
-        gScoreVal += 10;
-      } else {
-        gLivesVal -= 1;
-      }
-      it.el.remove();
-      gItems.splice(i,1);
-      gUpdateStats();
-      if(gLivesVal<=0){
-        gRunning=false;
-        alert("Game Over. Cookie still boss.");
-        return;
-      }
-      continue;
-    }
+  gArena.addEventListener("pointermove", (e) => {
+    if (e.buttons !== 1) return;
+    gSetYFromClientY(e.clientY);
+  });
 
-    if(it.x < -40){
-      it.el.remove();
-      gItems.splice(i,1);
-    }
+  gUp && gUp.addEventListener("click", () => gNudge(-28));
+  gDown && gDown.addEventListener("click", () => gNudge(28));
+
+  let gHoldTimer = null;
+
+  function gStartHold(dy) {
+    gNudge(dy);
+    gHoldTimer = setInterval(() => gNudge(dy), 90);
   }
 
-  requestAnimationFrame(gLoop);
-}
+  function gStopHold() {
+    if (gHoldTimer) clearInterval(gHoldTimer);
+    gHoldTimer = null;
+  }
 
-gStart.addEventListener("click", ()=>{
-  if(gRunning) return;
-  gRunning = true;
-  gLast = performance.now();
-  requestAnimationFrame(gLoop);
-});
+  gUp && gUp.addEventListener("pointerdown", () => gStartHold(-16));
+  gDown && gDown.addEventListener("pointerdown", () => gStartHold(16));
+  gUp && gUp.addEventListener("pointerup", gStopHold);
+  gDown && gDown.addEventListener("pointerup", gStopHold);
+  gUp && gUp.addEventListener("pointercancel", gStopHold);
+  gDown && gDown.addEventListener("pointercancel", gStopHold);
+  gUp && gUp.addEventListener("pointerleave", gStopHold);
+  gDown && gDown.addEventListener("pointerleave", gStopHold);
 
-gReset.addEventListener("click", ()=>{
-  gRunning=false;
-  gScoreVal=0;
-  gLivesVal=3;
-  gY=150;
-  gItems.forEach(i=>i.el.remove());
-  gItems=[];
-  gUpdateStats();
-});
-
-document.addEventListener("keydown",(e)=>{
-  if(e.key==="ArrowUp"||e.key==="w") gY -= 18;
-  if(e.key==="ArrowDown"||e.key==="s") gY += 18;
-  gY = gClamp(gY,0,gArena.clientHeight-70);
-  gCookie.style.top = gY+"px";
-});
-
-gUpdateStats();
+  gResetGame();
+})();
   </script>
 </body>
 </html>
