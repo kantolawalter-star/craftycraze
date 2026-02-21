@@ -1,81 +1,1437 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CraftyCraze</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CraftyCraze handmade crafts, custom gifts, cute decor. Boss: Cookie." />
+
   <style>
-    body {
+    :root{
+      --bg0:#06060a;
+      --bg1:#0b0b14;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.08);
+      --stroke: rgba(255,255,255,0.12);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.68);
+      --muted2: rgba(255,255,255,0.54);
+      --shadow: 0 24px 80px rgba(0,0,0,0.55);
+      --radius: 18px;
+      --radius2: 26px;
+
+      --p0:#ff6bd6;
+      --p1:#7c3aed;
+      --p2:#0ea5e9;
+      --p3:#22c55e;
+      --warn:#ffb020;
+
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 20% 10%, rgba(255,107,214,0.18), transparent 60%),
+                  radial-gradient(1200px 700px at 80% 10%, rgba(14,165,233,0.18), transparent 60%),
+                  radial-gradient(1200px 700px at 60% 70%, rgba(124,58,237,0.18), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ opacity:0.95; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    .noise{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      opacity:0.06;
+      mix-blend-mode: overlay;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+      background-size: 140px 140px;
+      z-index:999;
+    }
+
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10,10,18,0.55);
+      backdrop-filter: blur(12px);
+    }
+    .topbarInner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 180px;
+    }
+    .logo{
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 30%, var(--p0), transparent 55%),
+        radial-gradient(circle at 70% 25%, var(--p2), transparent 55%),
+        radial-gradient(circle at 50% 85%, var(--p1), transparent 55%),
+        linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+      box-shadow: 0 18px 40px rgba(124,58,237,0.22);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .brandText .name{
+      font-weight: 860;
+      letter-spacing: 0.2px;
+      font-size: 15px;
+      line-height: 1.1;
+    }
+    .brandText .tag{
+      font-size: 12px;
+      color: var(--muted2);
+      margin-top: 3px;
+    }
+
+    .nav{
+      display:flex;
+      gap: 6px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .nav a{
+      font-size: 14px;
+      color: var(--muted);
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
+      border-color: rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+    }
+
+    .rightTools{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 180px;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-size: 14px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.09); }
+    .btnPrimary{
+      border: none;
+      background: linear-gradient(90deg, var(--p0), var(--p1), var(--p2));
+      box-shadow: 0 22px 60px rgba(124,58,237,0.22);
+    }
+    .btnIcon{
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      padding: 0;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 7px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+
+    .hero{
+      position:relative;
+      padding: 70px 0 36px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .heroGlow{
+      position:absolute;
+      inset:-120px -80px -120px -80px;
+      background:
+        radial-gradient(650px 350px at 20% 25%, rgba(255,107,214,0.28), transparent 60%),
+        radial-gradient(650px 350px at 80% 10%, rgba(14,165,233,0.22), transparent 62%),
+        radial-gradient(650px 350px at 60% 80%, rgba(124,58,237,0.25), transparent 62%);
+      filter: blur(18px);
+      opacity: 0.95;
+      transform: translateZ(0);
+      animation: floaty 8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes floaty{
+      0%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(0,-10px,0) scale(1.02); }
+      100%{ transform: translate3d(0,0,0) scale(1); }
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--p3);
+      box-shadow: 0 0 0 7px rgba(34,197,94,0.12);
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: 56px;
+      line-height: 1.02;
+      letter-spacing: -0.6px;
+    }
+    .lead{
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff6bd6, #7c3aed, #0ea5e9);
-      color: white;
-      text-align: center;
-    }
-
-    .hero {
-      padding: 100px 20px;
-    }
-
-    h1 {
-      font-size: 60px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    .button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 15px 30px;
-      background: white;
-      color: black;
-      text-decoration: none;
-      border-radius: 15px;
-      font-weight: bold;
-    }
-
-    .section {
-      background: white;
-      color: black;
-      padding: 60px 20px;
-    }
-
-    .card {
-      background: #f2f2f2;
-      margin: 15px;
-      padding: 25px;
-      border-radius: 20px;
-      display: inline-block;
-      width: 220px;
+      color: var(--muted);
       font-size: 18px;
+      line-height: 1.6;
+      max-width: 60ch;
+    }
+    .ctaRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      align-items:center;
+    }
+
+    .heroStats{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .stat{
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      min-width: 160px;
+    }
+    .stat strong{ display:block; font-size: 14px; }
+    .stat span{ display:block; margin-top: 3px; font-size: 12px; color: var(--muted2); }
+
+    .card{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      box-shadow: var(--shadow);
+    }
+
+    .rightPanel{
+      position: sticky;
+      top: 84px;
+      padding: 14px;
+    }
+
+    .panelHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 14px 14px 10px;
+    }
+    .panelHeader h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+    }
+    .panelHeader p{
+      margin: 6px 0 0;
+      color: var(--muted2);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .panelBody{
+      padding: 0 14px 14px;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip{
+      border-radius: 999px;
+      padding: 9px 10px;
+      font-size: 13px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      cursor:pointer;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.08); color: var(--text); }
+    .chipActive{
+      background: rgba(255,255,255,0.12);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .section{
+      padding: 42px 0;
+    }
+    .sectionTitle{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .sectionTitle h3{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:-0.2px;
+    }
+    .sectionTitle .hint{
+      color: var(--muted2);
+      font-size: 13px;
+    }
+
+    .toolbar{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin: 12px 0 16px;
+    }
+    .search{
+      flex: 1 1 240px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+    }
+    .search input{
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+    }
+    .select{
+      flex: 0 0 auto;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 14px;
+      outline:none;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .product{
+      overflow:hidden;
+      position:relative;
+      padding: 14px;
+      transition: transform 0.14s ease;
+    }
+    .product:hover{ transform: translateY(-2px); }
+
+    .thumb{
+      height: 150px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        radial-gradient(circle at 20% 25%, rgba(255,107,214,0.24), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(14,165,233,0.18), transparent 60%),
+        radial-gradient(circle at 60% 85%, rgba(124,58,237,0.20), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+      box-shadow: 0 20px 55px rgba(0,0,0,0.35);
+      display:flex;
+      align-items:flex-end;
+      padding: 10px;
+    }
+    .thumbLabel{
+      font-size: 12px;
+      color: rgba(255,255,255,0.78);
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .product h4{
+      margin: 12px 0 6px;
+      font-size: 16px;
+    }
+    .product p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 40px;
+    }
+
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .price{
+      display:flex;
+      align-items:baseline;
+      gap: 8px;
+    }
+    .price strong{ font-size: 16px; }
+    .price span{ font-size: 12px; color: var(--muted2); }
+
+    .tiny{
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .box{
+      padding: 16px;
+    }
+    .box h4{ margin:0 0 6px; font-size: 16px; }
+    .box p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .testi{
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .quote{
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.86);
+      margin: 0 0 10px;
+    }
+    .who{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      color: var(--muted2);
+      font-size: 12px;
+    }
+
+    .footer{
+      border-top: 1px solid rgba(255,255,255,0.10);
+      padding: 22px 0;
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .footerInner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footerLinks{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .modalBackdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 200;
+    }
+    .modal{
+      width: min(920px, 100%);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(12,12,22,0.78);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.65);
+      overflow:hidden;
+    }
+    .modalTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .modalTop strong{ font-size: 14px; }
+    .modalClose{
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .modalBody{
+      padding: 14px;
+      display:grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 12px;
+    }
+    .modalThumb{
+      height: 260px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        radial-gradient(circle at 20% 25%, rgba(255,107,214,0.24), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(14,165,233,0.18), transparent 60%),
+        radial-gradient(circle at 60% 85%, rgba(124,58,237,0.20), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+      box-shadow: 0 20px 55px rgba(0,0,0,0.35);
+      display:flex;
+      align-items:flex-end;
+      padding: 12px;
+    }
+    .modalInfo h3{ margin: 4px 0 6px; font-size: 22px; }
+    .modalInfo p{ margin: 0 0 10px; color: var(--muted); line-height: 1.6; }
+    .kvs{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .kv{
+      padding: 10px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cartPanel{
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: min(360px, calc(100% - 32px));
+      display:none;
+      z-index: 220;
+    }
+    .cartInner{
+      padding: 14px;
+    }
+    .cartHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .cartHeader strong{ font-size: 14px; }
+    .cartList{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      margin-top: 10px;
+      max-height: 220px;
+      overflow:auto;
+      padding-right: 6px;
+    }
+    .cartItem{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+    }
+    .cartItem strong{ font-size: 13px; display:block; }
+    .cartItem span{ font-size: 12px; color: var(--muted2); display:block; margin-top: 3px; }
+    .cartItem button{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor:pointer;
+    }
+    .cartTotal{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(12,12,22,0.78);
+      color: var(--text);
+      font-size: 13px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+      display:none;
+      z-index: 230;
+    }
+
+    @media (max-width: 980px){
+      h1{ font-size: 44px; }
+      .heroGrid{ grid-template-columns: 1fr; }
+      .rightPanel{ position: relative; top: auto; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .split{ grid-template-columns: 1fr; }
+      .modalBody{ grid-template-columns: 1fr; }
+      .nav{ display:none; }
+      .brand{ min-width: auto; }
+      .rightTools{ min-width: auto; }
+    }
+    @media (max-width: 520px){
+      h1{ font-size: 38px; }
+      .grid{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
+  <div class="noise" aria-hidden="true"></div>
 
-  <div class="hero">
-    <h1>CraftyCraze</h1>
-    <p>Handmade crafts, custom gifts, and cute decor made with love.</p>
-    <a href="#contact" class="button">Order Custom</a>
+  <header class="topbar" id="topbar">
+    <div class="wrap topbarInner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brandText">
+          <div class="name">CraftyCraze</div>
+          <div class="tag">Boss: Cookie</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Site">
+        <a href="#shop">Shop</a>
+        <a href="#how">How it works</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="rightTools">
+        <button class="btn btnIcon" id="themeBtn" title="Sparkle mode">
+          ✨
+        </button>
+        <button class="btn" id="openCartBtn" title="Open cart">
+          Cart <span class="badge" id="cartCount">0</span>
+        </button>
+        <a class="btn btnPrimary" href="#contact">Order custom</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="heroGlow" aria-hidden="true"></div>
+      <div class="wrap heroGrid">
+        <div>
+          <div class="pill">
+            <span class="dot" aria-hidden="true"></span>
+            Handmade drops plus custom orders
+          </div>
+
+          <h1>
+            Crafted with chaos.<br>
+            Finished with love.
+          </h1>
+
+          <p class="lead">
+            Welcome to CraftyCraze. Cute decor, custom gifts, and tiny magic items made by the team led by Cookie.
+            Browse the shop, filter by vibe, and tap any item for a quick view.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn btnPrimary" href="#shop">Explore the shop</a>
+            <button class="btn" id="surpriseBtn">Surprise me</button>
+            <a class="btn" href="#how">How it works</a>
+          </div>
+
+          <div class="heroStats">
+            <div class="stat"><strong>Custom</strong><span>made to your theme</span></div>
+            <div class="stat"><strong>Fast</strong><span>friendly turnaround</span></div>
+            <div class="stat"><strong>Handmade</strong><span>every single piece</span></div>
+          </div>
+        </div>
+
+        <aside class="card rightPanel" aria-label="Quick actions">
+          <div class="panelHeader">
+            <div>
+              <h2>Today’s drop board</h2>
+              <p>
+                Tap a vibe and the shop updates. This is where you can make the site feel alive.
+              </p>
+            </div>
+            <span class="badge" id="itemCountBadge">0</span>
+          </div>
+
+          <div class="panelBody">
+            <div class="chips" id="vibeChips">
+              <button class="chip chipActive" data-vibe="all">All</button>
+              <button class="chip" data-vibe="cute">Cute</button>
+              <button class="chip" data-vibe="sparkle">Sparkle</button>
+              <button class="chip" data-vibe="cozy">Cozy</button>
+              <button class="chip" data-vibe="party">Party</button>
+              <button class="chip" data-vibe="custom">Custom</button>
+            </div>
+
+            <div style="margin-top:12px;">
+              <button class="btn tiny" id="randomDealBtn">Generate a random deal</button>
+            </div>
+
+            <div style="margin-top:12px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
+              Boss Cookie tip: You can edit product names, prices, and vibes inside the code in one list.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="shop">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h3>Shop</h3>
+          <div class="hint">Filter, search, and quick view</div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search">
+            🔎
+            <input id="searchInput" placeholder="Search products like charm, sticker, bouquet" />
+          </div>
+
+          <select class="select" id="sortSelect">
+            <option value="featured">Sort: Featured</option>
+            <option value="priceLow">Sort: Price low</option>
+            <option value="priceHigh">Sort: Price high</option>
+            <option value="name">Sort: Name</option>
+          </select>
+
+          <button class="btn" id="clearBtn">Clear</button>
+        </div>
+
+        <div class="grid" id="productGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h3>How it works</h3>
+          <div class="hint">From idea to finished piece</div>
+        </div>
+
+        <div class="split">
+          <div class="card box">
+            <h4>Custom order flow</h4>
+            <p>Send a message, pick a vibe, and Cookie approves the plan.</p>
+            <ul class="list">
+              <li>Tell us what you want made</li>
+              <li>Share colors, theme, and the date you need it</li>
+              <li>We send a quick plan and price</li>
+              <li>We craft it and send progress photos</li>
+            </ul>
+          </div>
+
+          <div class="card box">
+            <h4>Weekly drops</h4>
+            <p>Limited items, first come first served. New drops every week.</p>
+            <ul class="list">
+              <li>Follow the social link</li>
+              <li>Turn on notifications</li>
+              <li>Grab it fast when it drops</li>
+              <li>Request a matching custom set</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h3>Reviews</h3>
+          <div class="hint">Auto rotating slider</div>
+        </div>
+
+        <div class="card testi" id="reviewCard">
+          <p class="quote" id="reviewText"></p>
+          <div class="who">
+            <span id="reviewName"></span>
+            <span id="reviewMeta"></span>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn tiny" id="prevReview">Previous</button>
+            <button class="btn tiny" id="nextReview">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h3>Contact</h3>
+          <div class="hint">Opens email with details</div>
+        </div>
+
+        <div class="split">
+          <div class="card box">
+            <h4>Message CraftyCraze</h4>
+            <p>Replace these with your sister’s real details.</p>
+            <ul class="list">
+              <li>Email: <a href="mailto:craftycraze@example.com">craftycraze@example.com</a></li>
+              <li>Instagram: <a href="#" id="igLink">@craftycraze</a></li>
+              <li>Boss: Cookie</li>
+            </ul>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btnPrimary tiny" id="emailBtn">Start a custom order email</button>
+              <button class="btn tiny" id="copyLinkBtn">Copy website link</button>
+            </div>
+          </div>
+
+          <div class="card box">
+            <h4>Custom order form</h4>
+            <p>Fill this in and press Create Email. It will open Mail with everything ready.</p>
+
+            <div style="margin-top:12px; display:grid; gap:10px;">
+              <input class="select" id="formName" placeholder="Your name" />
+              <input class="select" id="formItem" placeholder="What do you want made" />
+              <input class="select" id="formColors" placeholder="Colors or theme" />
+              <input class="select" id="formDate" placeholder="Date needed" />
+              <button class="btn btnPrimary" id="createEmailBtn">Create Email</button>
+            </div>
+
+            <div style="margin-top:10px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
+              This does not send anything by itself. It just opens your email app.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footerInner">
+        <div>
+          © <span id="year"></span> CraftyCraze. Boss Cookie runs the show.
+        </div>
+        <div class="footerLinks">
+          <a href="#shop">Shop</a>
+          <a href="#how">How it works</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Product quick view">
+    <div class="modal">
+      <div class="modalTop">
+        <strong id="modalTopTitle">Quick view</strong>
+        <button class="modalClose" id="modalCloseBtn">✕</button>
+      </div>
+      <div class="modalBody">
+        <div class="modalThumb" id="modalThumb">
+          <span class="thumbLabel" id="modalLabel"></span>
+        </div>
+        <div class="modalInfo">
+          <h3 id="modalName"></h3>
+          <p id="modalDesc"></p>
+          <div class="kvs" id="modalKvs"></div>
+          <div class="row">
+            <div class="price">
+              <strong id="modalPrice"></strong>
+              <span id="modalSmall"></span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn tiny" id="modalAddBtn">Add to cart</button>
+              <a class="btn tiny" href="#contact">Request custom</a>
+            </div>
+          </div>
+          <div style="margin-top:10px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
+            Boss Cookie note: Add real photos later. For now these are fancy placeholder gradients.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="section">
-    <h2>Featured</h2>
-    <div class="card">Custom Gifts</div>
-    <div class="card">Room Decor</div>
-    <div class="card">Party Favors</div>
+  <div class="cartPanel" id="cartPanel">
+    <div class="card cartInner">
+      <div class="cartHeader">
+        <strong>Your cart</strong>
+        <button class="btn tiny" id="closeCartBtn">Close</button>
+      </div>
+
+      <div class="cartList" id="cartList"></div>
+
+      <div class="cartTotal">
+        <span>Total estimate</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+
+      <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btnPrimary tiny" id="checkoutBtn">Checkout message</button>
+        <button class="btn tiny" id="clearCartBtn">Clear cart</button>
+      </div>
+
+      <div style="margin-top:10px; color: var(--muted2); font-size: 12px; line-height: 1.6;">
+        This cart is for fun and planning. Real payments need a real shop later.
+      </div>
+    </div>
   </div>
 
-  <div class="section" id="contact">
-    <h2>Contact</h2>
-    <p>Email: craftycraze@example.com</p>
-    <p>Instagram: @craftycraze</p>
-  </div>
+  <div class="toast" id="toast"></div>
 
+  <script>
+    const BOSS_NAME = "Cookie";
+
+    const products = [
+      {
+        id: "p1",
+        name: "Name Charm Keychain",
+        vibe: "cute",
+        price: 12,
+        unit: "starting price",
+        label: "Best seller",
+        desc: "Personalized name charm with color options and cute add ons.",
+        tags: ["customizable", "gift", "cute"]
+      },
+      {
+        id: "p2",
+        name: "Sticker Pack Deluxe",
+        vibe: "sparkle",
+        price: 8,
+        unit: "per pack",
+        label: "New",
+        desc: "A pack of themed stickers with glossy sparkle accents.",
+        tags: ["drop", "sparkle", "collectible"]
+      },
+      {
+        id: "p3",
+        name: "Cozy Desk Decor",
+        vibe: "cozy",
+        price: 18,
+        unit: "each",
+        label: "Cozy",
+        desc: "Small handmade decor piece for desks and shelves.",
+        tags: ["cozy", "decor", "handmade"]
+      },
+      {
+        id: "p4",
+        name: "Party Favor Bundle",
+        vibe: "party",
+        price: 25,
+        unit: "bundle",
+        label: "Bundle",
+        desc: "Matching party favors with tags, colors, and theme choices.",
+        tags: ["party", "bundle", "custom"]
+      },
+      {
+        id: "p5",
+        name: "Mini Bouquet Gift",
+        vibe: "cute",
+        price: 16,
+        unit: "each",
+        label: "Gift",
+        desc: "A tiny bouquet style gift made to your palette.",
+        tags: ["gift", "cute", "cozy"]
+      },
+      {
+        id: "p6",
+        name: "Custom Mystery Box",
+        vibe: "custom",
+        price: 30,
+        unit: "starting price",
+        label: "Custom",
+        desc: "Tell us the vibe, budget, and deadline. Cookie curates the magic.",
+        tags: ["custom", "surprise", "boss approved"]
+      }
+    ];
+
+    const reviews = [
+      { text: "Everything looked even cuter in real life. The details were perfect.", name: "Ava", meta: "Custom gift order" },
+      { text: "Fast, friendly, and the colors matched my theme exactly.", name: "Noah", meta: "Party bundle" },
+      { text: "The packaging was adorable and the piece feels super high quality.", name: "Mia", meta: "Weekly drop" },
+      { text: "Cookie understood the vibe instantly and nailed it.", name: "Luca", meta: "Mystery box" }
+    ];
+
+    const el = (id) => document.getElementById(id);
+
+    const grid = el("productGrid");
+    const searchInput = el("searchInput");
+    const sortSelect = el("sortSelect");
+    const clearBtn = el("clearBtn");
+    const vibeChips = el("vibeChips");
+    const itemCountBadge = el("itemCountBadge");
+
+    const modalBackdrop = el("modalBackdrop");
+    const modalCloseBtn = el("modalCloseBtn");
+    const modalTopTitle = el("modalTopTitle");
+    const modalLabel = el("modalLabel");
+    const modalName = el("modalName");
+    const modalDesc = el("modalDesc");
+    const modalKvs = el("modalKvs");
+    const modalPrice = el("modalPrice");
+    const modalSmall = el("modalSmall");
+    const modalAddBtn = el("modalAddBtn");
+
+    const cartPanel = el("cartPanel");
+    const openCartBtn = el("openCartBtn");
+    const closeCartBtn = el("closeCartBtn");
+    const clearCartBtn = el("clearCartBtn");
+    const cartList = el("cartList");
+    const cartTotal = el("cartTotal");
+    const cartCount = el("cartCount");
+    const checkoutBtn = el("checkoutBtn");
+
+    const toast = el("toast");
+
+    const year = el("year");
+    year.textContent = new Date().getFullYear();
+
+    let currentVibe = "all";
+    let cart = [];
+    let modalProduct = null;
+
+    function money(n){
+      return "$" + n.toFixed(0);
+    }
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => {
+        toast.style.display = "none";
+      }, 1600);
+    }
+
+    function activeChip(vibe){
+      [...vibeChips.querySelectorAll(".chip")].forEach(ch => {
+        ch.classList.toggle("chipActive", ch.dataset.vibe === vibe);
+      });
+    }
+
+    function filteredProducts(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+      let list = products.slice();
+
+      if(currentVibe !== "all"){
+        list = list.filter(p => p.vibe === currentVibe);
+      }
+      if(q){
+        list = list.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.desc.toLowerCase().includes(q) ||
+          p.tags.join(" ").toLowerCase().includes(q)
+        );
+      }
+
+      const sort = sortSelect.value;
+      if(sort === "priceLow") list.sort((a,b) => a.price - b.price);
+      if(sort === "priceHigh") list.sort((a,b) => b.price - a.price);
+      if(sort === "name") list.sort((a,b) => a.name.localeCompare(b.name));
+
+      itemCountBadge.textContent = list.length;
+      return list;
+    }
+
+    function renderGrid(){
+      const list = filteredProducts();
+      grid.innerHTML = "";
+
+      list.forEach(p => {
+        const card = document.createElement("article");
+        card.className = "card product";
+        card.innerHTML = `
+          <div class="thumb">
+            <span class="thumbLabel">${p.label}</span>
+          </div>
+          <h4>${p.name}</h4>
+          <p>${p.desc}</p>
+          <div class="row">
+            <div class="price">
+              <strong>${money(p.price)}</strong>
+              <span>${p.unit}</span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn tiny" data-act="view">Quick view</button>
+              <button class="btn tiny" data-act="add">Add</button>
+            </div>
+          </div>
+        `;
+
+        card.querySelector('[data-act="view"]').addEventListener("click", () => openModal(p.id));
+        card.querySelector('[data-act="add"]').addEventListener("click", () => addToCart(p.id));
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(productId){
+      const p = products.find(x => x.id === productId);
+      if(!p) return;
+      modalProduct = p;
+
+      modalTopTitle.textContent = "Quick view";
+      modalLabel.textContent = p.label;
+      modalName.textContent = p.name;
+      modalDesc.textContent = p.desc;
+
+      modalKvs.innerHTML = "";
+      const kvs = [
+        "Vibe: " + p.vibe,
+        "Boss approved by " + BOSS_NAME,
+        "Tags: " + p.tags.join(", ")
+      ];
+      kvs.forEach(t => {
+        const k = document.createElement("div");
+        k.className = "kv";
+        k.textContent = t;
+        modalKvs.appendChild(k);
+      });
+
+      modalPrice.textContent = money(p.price);
+      modalSmall.textContent = p.unit;
+
+      modalBackdrop.style.display = "flex";
+    }
+
+    function closeModal(){
+      modalBackdrop.style.display = "none";
+      modalProduct = null;
+    }
+
+    modalCloseBtn.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", (e) => {
+      if(e.target === modalBackdrop) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeModal();
+    });
+
+    modalAddBtn.addEventListener("click", () => {
+      if(modalProduct) addToCart(modalProduct.id);
+    });
+
+    function addToCart(productId){
+      const p = products.find(x => x.id === productId);
+      if(!p) return;
+      cart.push({ id: p.id, name: p.name, price: p.price, unit: p.unit });
+      updateCartUi();
+      showToast("Added: " + p.name);
+    }
+
+    function removeFromCart(index){
+      cart.splice(index, 1);
+      updateCartUi();
+    }
+
+    function updateCartUi(){
+      cartCount.textContent = cart.length;
+
+      if(cart.length === 0){
+        cartList.innerHTML = `<div style="color: var(--muted2); font-size: 13px;">Cart is empty. Add something cute.</div>`;
+      } else {
+        cartList.innerHTML = "";
+        cart.forEach((it, idx) => {
+          const row = document.createElement("div");
+          row.className = "cartItem";
+          row.innerHTML = `
+            <div>
+              <strong>${it.name}</strong>
+              <span>${money(it.price)} · ${it.unit}</span>
+            </div>
+            <button title="Remove">Remove</button>
+          `;
+          row.querySelector("button").addEventListener("click", () => removeFromCart(idx));
+          cartList.appendChild(row);
+        });
+      }
+
+      const total = cart.reduce((s, it) => s + it.price, 0);
+      cartTotal.textContent = money(total);
+
+      if(cart.length > 0){
+        cartPanel.style.display = "block";
+      }
+    }
+
+    openCartBtn.addEventListener("click", () => {
+      cartPanel.style.display = (cartPanel.style.display === "block") ? "none" : "block";
+    });
+    closeCartBtn.addEventListener("click", () => cartPanel.style.display = "none");
+    clearCartBtn.addEventListener("click", () => {
+      cart = [];
+      updateCartUi();
+      showToast("Cart cleared");
+    });
+
+    checkoutBtn.addEventListener("click", () => {
+      if(cart.length === 0){
+        showToast("Cart is empty");
+        return;
+      }
+      const total = cart.reduce((s, it) => s + it.price, 0);
+      const lines = cart.map(it => "• " + it.name + " (" + money(it.price) + " " + it.unit + ")");
+      const body = [
+        "Hi CraftyCraze,",
+        "",
+        "I want to order these items:",
+        ...lines,
+        "",
+        "Estimated total: " + money(total),
+        "",
+        "Boss Cookie approved vibe: " + currentVibe,
+        "",
+        "My name:",
+        "My deadline:",
+        "My colors and theme:",
+        ""
+      ].join("\n");
+
+      const subject = encodeURIComponent("CraftyCraze order request");
+      const mail = "mailto:craftycraze@example.com?subject=" + subject + "&body=" + encodeURIComponent(body);
+      window.location.href = mail;
+    });
+
+    function wireChips(){
+      vibeChips.addEventListener("click", (e) => {
+        const btn = e.target.closest(".chip");
+        if(!btn) return;
+        currentVibe = btn.dataset.vibe || "all";
+        activeChip(currentVibe);
+        renderGrid();
+        showToast("Vibe: " + currentVibe);
+      });
+    }
+
+    searchInput.addEventListener("input", () => renderGrid());
+    sortSelect.addEventListener("change", () => renderGrid());
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      sortSelect.value = "featured";
+      currentVibe = "all";
+      activeChip("all");
+      renderGrid();
+      showToast("Cleared");
+    });
+
+    el("surpriseBtn").addEventListener("click", () => {
+      const list = filteredProducts();
+      if(list.length === 0){
+        showToast("No matches to surprise");
+        return;
+      }
+      const pick = list[Math.floor(Math.random() * list.length)];
+      openModal(pick.id);
+    });
+
+    el("randomDealBtn").addEventListener("click", () => {
+      const pick = products[Math.floor(Math.random() * products.length)];
+      const cut = Math.floor(Math.random() * 6) + 5;
+      showToast("Deal: " + cut + " percent off " + pick.name);
+    });
+
+    const themeBtn = el("themeBtn");
+    let sparkle = false;
+    themeBtn.addEventListener("click", () => {
+      sparkle = !sparkle;
+      document.body.style.filter = sparkle ? "saturate(1.2) contrast(1.05)" : "none";
+      showToast(sparkle ? "Sparkle mode on" : "Sparkle mode off");
+    });
+
+    const reviewText = el("reviewText");
+    const reviewName = el("reviewName");
+    const reviewMeta = el("reviewMeta");
+    let reviewIndex = 0;
+
+    function renderReview(){
+      const r = reviews[reviewIndex];
+      reviewText.textContent = "“" + r.text + "”";
+      reviewName.textContent = r.name;
+      reviewMeta.textContent = r.meta;
+    }
+
+    el("prevReview").addEventListener("click", () => {
+      reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
+      renderReview();
+    });
+    el("nextReview").addEventListener("click", () => {
+      reviewIndex = (reviewIndex + 1) % reviews.length;
+      renderReview();
+    });
+
+    setInterval(() => {
+      reviewIndex = (reviewIndex + 1) % reviews.length;
+      renderReview();
+    }, 5200);
+
+    function safeCopy(text){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        return navigator.clipboard.writeText(text);
+      }
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      return Promise.resolve();
+    }
+
+    el("copyLinkBtn").addEventListener("click", async () => {
+      const link = window.location.href;
+      await safeCopy(link);
+      showToast("Link copied");
+    });
+
+    el("emailBtn").addEventListener("click", () => {
+      const body = [
+        "Hi CraftyCraze,",
+        "",
+        "I want a custom order.",
+        "",
+        "What I want made:",
+        "Colors and theme:",
+        "Date needed:",
+        "Budget:",
+        "",
+        "Thanks,",
+        ""
+      ].join("\n");
+
+      const mail = "mailto:craftycraze@example.com?subject=" +
+        encodeURIComponent("Custom order request") +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mail;
+    });
+
+    el("createEmailBtn").addEventListener("click", () => {
+      const name = el("formName").value.trim();
+      const item = el("formItem").value.trim();
+      const colors = el("formColors").value.trim();
+      const date = el("formDate").value.trim();
+
+      const body = [
+        "Hi CraftyCraze,",
+        "",
+        "My name: " + (name || "(your name)"),
+        "I want: " + (item || "(what you want made)"),
+        "Colors and theme: " + (colors || "(colors theme)"),
+        "Date needed: " + (date || "(date)"),
+        "",
+        "Boss Cookie note: please confirm the plan and price.",
+        "",
+        "Thanks!"
+      ].join("\n");
+
+      const mail = "mailto:craftycraze@example.com?subject=" +
+        encodeURIComponent("CraftyCraze custom order") +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mail;
+    });
+
+    wireChips();
+    activeChip("all");
+    renderGrid();
+    updateCartUi();
+    renderReview();
+
+    el("igLink").addEventListener("click", (e) => {
+      e.preventDefault();
+      showToast("Add your real Instagram link in the code");
+    });
+  </script>
 </body>
 </html>
